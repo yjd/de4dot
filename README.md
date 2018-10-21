@@ -4,6 +4,17 @@ Read it before
 
 [致中国区用户的一封信](致中国区用户的一封信.md)
 
+Notes by Mod
+------------
+
+![debug-animated](images/pic9.png)
+
+**Tip**: If the obfuscated assemply protected by MaxtoCode cannot run, you could open it in PE Editor such as CFF Explorer, then go to ".NET Directory" - "Flags", Click here, then check the "32bit required" option, then save the assembly.(Credit 0xd4d)
+
+If you want to decrypt the encrypted method, you can dump them, or modify the code of modded de4dot.
+
+You can use it first to decrypt the strings, then use a decompiler such as [dnSpy](https://github.com/0xd4d/dnSpy), the strings can be shown then. Or you can use a debugger to search for the strings. So in this way the purpose for RCE can be reached.
+
 Description
 ===========
 
