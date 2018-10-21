@@ -110,6 +110,13 @@ namespace de4dot.cui {
 				Logger.n("Latest version and source code: https://github.com/0xd4d/de4dot");
 				Logger.n("");
 
+				// Mod Info
+				var foregroundColor = Console.ForegroundColor;
+				Console.ForegroundColor = ConsoleColor.Green;
+				Logger.n("== MaxtoCode 3.80-3.87 Partial Fix by Tianjiao ==");
+				Logger.n("Source code: https://github.com/Tianjiao/de4dot");
+				Console.ForegroundColor = foregroundColor;
+
 				var options = new FilesDeobfuscator.Options();
 				ParseCommandLine(args, options);
 				new FilesDeobfuscator(options).DoIt();

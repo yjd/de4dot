@@ -210,8 +210,14 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 
 			public void InitializeInfos() {
 				InitializeDecrypter();
-				if (!InitializeInfos2())
-					throw new ApplicationException("Could not decrypt methods");
+				if (!InitializeInfos2()) {
+					// Ignore ApplicationException here
+					var foregroundColor = Console.ForegroundColor;
+					Console.ForegroundColor = ConsoleColor.Red;
+					Logger.w("Ignore ApplicationException, Could not decrypt methods.");
+					Console.ForegroundColor = foregroundColor;
+					//throw new ApplicationException("Could not decrypt methods");
+				}
 			}
 
 			uint GetRuntimeTimeStamp() {
