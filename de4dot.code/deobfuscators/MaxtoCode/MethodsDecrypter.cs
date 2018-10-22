@@ -214,11 +214,10 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 			public void InitializeInfos() {
 				InitializeDecrypter();
 				if (!InitializeInfos2()) {
-					// Ignore ApplicationException here
-					var foregroundColor = Console.ForegroundColor;
+					// Ignore ApplicationException here, output text in Red on Console
 					Console.ForegroundColor = ConsoleColor.Red;
 					Logger.w("Ignore ApplicationException, Could not decrypt methods.");
-					Console.ForegroundColor = foregroundColor;
+					Console.ForegroundColor = ConsoleColor.Gray;
 					//throw new ApplicationException("Could not decrypt methods");
 				}
 			}
