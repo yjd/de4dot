@@ -217,7 +217,8 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 					// Ignore ApplicationException here, output text in Red on Console
 					Console.ForegroundColor = ConsoleColor.Red;
 					Logger.w("Ignore ApplicationException, Could not decrypt methods.");
-					Console.ForegroundColor = ConsoleColor.Gray;
+					// Restore the original console colors.
+					Console.ResetColor();
 					//throw new ApplicationException("Could not decrypt methods");
 				}
 			}

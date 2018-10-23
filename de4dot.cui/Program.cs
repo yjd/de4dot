@@ -115,7 +115,8 @@ namespace de4dot.cui {
 				Logger.n("== MaxtoCode 3.80-3.87 Partial Fix by Tianjiao ==");
 				Logger.n("Source code: https://github.com/Tianjiao/de4dot");
 				Logger.n("");
-				Console.ForegroundColor = ConsoleColor.Gray;
+				// Restore the original console colors.
+				Console.ResetColor();
 
 				var options = new FilesDeobfuscator.Options();
 				ParseCommandLine(args, options);
