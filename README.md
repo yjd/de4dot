@@ -4,6 +4,13 @@ Read it before
 
 [致中国区用户的一封信](致中国区用户的一封信.md)
 
+Note
+------------
+
+![debug-animated](images/Ignore1.png)
+
+**Tip**: If the user sees this error during the deobfuscation, just press the "Ignore" button 15 times to ignore this error, or use "--dont-rename" option in the command line.
+
 Description
 ===========
 
