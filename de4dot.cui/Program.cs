@@ -112,7 +112,7 @@ namespace de4dot.cui {
 
 				// Mod Info
 				Console.ForegroundColor = ConsoleColor.DarkGreen;
-				Logger.n("== MaxtoCode 3.80-3.87 Partial Fix by Tianjiao ==");
+				Logger.n("== MaxtoCode (3.79sp1) - (3.87) Partial Fix by Tianjiao ==");
 				Logger.n("Source code: https://github.com/Tianjiao/de4dot");
 				Logger.n("");
 				// Restore the original console colors.
