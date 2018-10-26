@@ -119,7 +119,9 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 			// 52B3043C = Thu, 19 Dec 2013 14:35:40
 			// 53172907 = Wed, 05 Mar 2014 13:39:19
 			// 531729C4 = Wed, 05 Mar 2014 13:42:28
+			// 5502D4A9 = Fri, 13 Mar 2015 12:14:33 (3.79 sp1) (untested)
 			// 55F5B112 = Sun, 13 Sep 2015 17:23:30 (3.80) (untested)
+			// 57C709CA = Wed, 31 Aug 2016 16:46:02 (3.83) (untested)
 			// 5892EF00 = Thu, 02 Feb 2017 08:34:08 (3.84) (untested)
 			// 59995527 = Sun, 20 Aug 2017 09:23:51 (3.86) (untested)
 			// 5AAF874A = Mon, 19 Mar 2018 09:47:54 (3.87) (untested)
@@ -201,6 +203,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 			// 52B3043C = Thu, 19 Dec 2013 14:35:40
 			// 53172907 = Wed, 05 Mar 2014 13:39:19
 			// 531729C4 = Wed, 05 Mar 2014 13:42:28
+			// 57C709CA = Wed, 31 Aug 2016 16:46:02 (3.83) (untested)
 			// 5892EF00 = Thu, 02 Feb 2017 08:34:08 (3.84) (untested)
 			new EncryptionInfo {
 				MagicLo = 0x1A731B13,
@@ -211,6 +214,12 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 			new EncryptionInfo {
 				MagicLo = 0x7A731B13,
 				MagicHi = 0x1723891F,
+				Version = EncryptionVersion.V8,
+			},
+			// 5502D4A9 = Fri, 13 Mar 2015 12:14:33 (3.79 sp1) (untested)
+			new EncryptionInfo {
+				MagicLo = 0x8C114528,
+				MagicHi = 0x9EDF40ED,
 				Version = EncryptionVersion.V8,
 			},
 			// 55F5B112 = Sun, 13 Sep 2015 17:23:30 (3.80) (untested)
