@@ -78,7 +78,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 				uint magicLo = mcKey.ReadUInt32(0x8C0);
 				uint magicHi = mcKey.ReadUInt32(0x8C4);
 
-				// Key reader of McKey8C0h keys(untested).
+				// Key reader of McKey8C0h keys(untested). May not work for MC Ver <= 3.20
 				// Print MagicLo from McKey8C0h
 				Logger.vv("The MagicLo from McKey8C0h is");
 				Logger.Instance.Indent();
