@@ -234,13 +234,15 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 				MagicHi = 0x3BE51694,
 				Version = EncryptionVersion.V8,
 			},
-			// 5AAF874A = Mon, 19 Mar 2018 09:47:54 (3.87) (untested)
+			// As of MC Ver 3.87 and above, seems that it changes the McKey8C0h keys per encryption process. They are all correct, but just unique.
+			// Read the sample keys from Logger.vv(), write the keys back into the code, then compile it again.
+			// 5AAF874A = Mon, 19 Mar 2018 09:47:54 (3.87) (untested) (Sample)
 			new EncryptionInfo {
 				MagicLo = 0x58425DA8,
 				MagicHi = 0xDF80B317,
 				Version = EncryptionVersion.V8,
 			},
-			// 5B37D998 = Sat, 30 Jun 2018 19:27:20 (Beta above 3.87) (untested)
+			// 5B37D998 = Sat, 30 Jun 2018 19:27:20 (Beta above 3.87) (untested) (Public Sample)
 			new EncryptionInfo {
 				MagicLo = 0xC00CA8DC,
 				MagicHi = 0xEFBCF433,
