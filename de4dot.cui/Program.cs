@@ -33,7 +33,7 @@ namespace de4dot.cui {
 	}
 
 	class Program {
-		static IList<IDeobfuscatorInfo> deobfuscatorInfos = CreateDeobfuscatorInfos();
+		static readonly IList<IDeobfuscatorInfo> deobfuscatorInfos = CreateDeobfuscatorInfos();
 
 		static IList<IDeobfuscatorInfo> LoadPlugin(string assembly) {
 			var plugins = new List<IDeobfuscatorInfo>();
@@ -172,7 +172,9 @@ namespace de4dot.cui {
 
 		static bool HasEnv(string name) {
 			foreach (var tmp in Environment.GetEnvironmentVariables().Keys) {
+#pragma warning disable IDE0019 // Use pattern matching
 				var env = tmp as string;
+#pragma warning restore IDE0019 // Use pattern matching
 				if (env == null)
 					continue;
 				if (string.Equals(env, name, StringComparison.OrdinalIgnoreCase))
