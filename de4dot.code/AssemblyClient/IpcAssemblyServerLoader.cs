@@ -55,7 +55,11 @@ namespace de4dot.code.AssemblyClient {
 			}
 		}
 
-		public void LoadServer() => LoadServer(Utils.GetPathOfOurFile(assemblyServerFilename));
+		public void LoadServer() {
+			LoadServer(Utils.GetPathOfOurFile(assemblyServerFilename));
+			Logger.vv("AssemblyServer loaded in " + Utils.GetPathOfOurFile(assemblyServerFilename).ToString());
+		}
+
 		public abstract void LoadServer(string filename);
 		public IAssemblyService CreateService() => (IAssemblyService)Activator.GetObject(AssemblyService.GetType(serviceType), url);
 		public abstract void Dispose();
