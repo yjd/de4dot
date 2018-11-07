@@ -252,10 +252,11 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 												Logger.vv("Full path of Referenced DLL is " + Path.Combine(di.FullName, dllName));
 										}
 										// Print Referenced DLL TimeDateStamp
-										var dateTime = new DateTime(1970, 1, 1, 0, 0, 0);
+										var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
 										Logger.vv("Referenced DLL TimeDateStamp is");
 										Logger.Instance.Indent();
-										Logger.vv("{0:X} = {1:r}", peImage.ImageNTHeaders.FileHeader.TimeDateStamp, dateTime.AddSeconds(peImage.ImageNTHeaders.FileHeader.TimeDateStamp));
+										// RFC1123 pattern, see https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings#the-rfc1123-r-r-format-specifier
+										Logger.vv("{0:X} = {1:r}", peImage.ImageNTHeaders.FileHeader.TimeDateStamp, dateTime.AddSeconds(peImage.ImageNTHeaders.FileHeader.TimeDateStamp).ToUniversalTime());
 										Logger.Instance.DeIndent();
 										Logger.vv("Add this TimeDateStamp into comments of EncryptionInfo[] Rva900h and EncryptionInfo[] McKey8C0h in de4dot.code\\deobfuscators\\MaxtoCode\\EncryptionInfos.cs, then publish your code.");
 
