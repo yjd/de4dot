@@ -44,6 +44,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 			version = GetHeaderOffsetAndVersion(peImage, out uint headerOffset);
 			headerData = peImage.OffsetReadBytes(headerOffset, 0x1000);
 
+			// Guess the xorKey by the Python script
 			switch (version) {
 			case EncryptionVersion.V1:
 			case EncryptionVersion.V2:
