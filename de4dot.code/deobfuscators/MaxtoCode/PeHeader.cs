@@ -18,6 +18,7 @@
 */
 
 using System;
+using System.Diagnostics;
 using System.Text;
 using dnlib.PE;
 
@@ -104,6 +105,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 			string lowerBandHex = "", upperBandHex = "";
 			var lowerBandHexSB = new StringBuilder("0x1", (keyLength + 3));
 			var upperBandHexSB = new StringBuilder("0x", ((keyLength * 2) + 2));
+
 			// Minimum Hex value for this keyLength
 			if (lowerBandHexSB != null)
 				lowerBandHex = lowerBandHexSB.Append('0', keyLength).ToString();
@@ -112,9 +114,16 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 			if (upperBandHexSB != null)
 				upperBandHex = upperBandHexSB.Append('F', (keyLength * 2)).ToString();
 
-			Logger.vv("Begin to Guess xorkey, waiting, current time in UTC in " + System.DateTime.Now.ToUniversalTime().ToString("hh:mm:ss"));
+			var stopWatch = new Stopwatch();
+			stopWatch.Start();
 			ExcludeXorKey(peImage, lowerBandHex, upperBandHex, false);
-			Logger.vv("Finish Guessing xorkey, current time in UTC in " + System.DateTime.Now.ToUniversalTime().ToString("hh:mm:ss"));
+			stopWatch.Stop();
+			// Get the elapsed time as a TimeSpan value.
+			var ts = stopWatch.Elapsed;
+
+			// Format and display the TimeSpan value.
+			string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+			Logger.vv("Finish Guessing xorkey, RunTime " + elapsedTime);
 		}
 
 		/// <summary>Exclude the xorKey by CheckMcKeyRva() <see cref="CheckMcKeyRva(MyPEImage, uint)"/>
@@ -123,21 +132,20 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 		/// <param name="peImage">Used to pass the peImage param.</param>
 		/// <param name="lowerBandHex">Used to specify the Minimum Hex value of the possible xorKey value.</param>
 		/// <param name="upperBandHex">Used to specify the Maximum Hex value of the possible xorKey value.</param>
-		/// <param name="isPatternMatching">Used to specify whether enable Pattern Matching.</param>
+		/// <param name="isStringMatching">Used to specify whether enable String Matching.</param>
 		/// <para>Author: Tianjiao(Wang Genghuang) at https://github.com/Tianjiao/de4dot
 		/// </summary>
-		private void ExcludeXorKey(in MyPEImage peImage, string lowerBandHex, string upperBandHex, bool isPatternMatching) {
+		private void ExcludeXorKey(in MyPEImage peImage, string lowerBandHex, string upperBandHex, bool isStringMatching) {
 			uint lowerBand = 0, upperBand = 0;
 			if (lowerBandHex != null)
 				lowerBand = Convert.ToUInt32(lowerBandHex, 16);
 			if (upperBandHex != null)
 				upperBand = Convert.ToUInt32(upperBandHex, 16);
 
-			Logger.vv("Begin to Exclude xorkey, waiting, current time in UTC in " + System.DateTime.Now.ToUniversalTime().ToString("hh:mm:ss"));
 			for (uint triedXorKey = lowerBand; triedXorKey < upperBand; triedXorKey++) {
 				if (CheckMcKeyRva(peImage, triedXorKey)) {
-					if (isPatternMatching) {
-						PatternMatching(peImage, triedXorKey);
+					if (isStringMatching) {
+						StringMatching(peImage, triedXorKey);
 						break;
 					}
 					Logger.vv("Guessed possible xorkey found at");
@@ -147,21 +155,19 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 					Logger.vv("_________________________________");
 				}
 
-				if (triedXorKey >= upperBand) {
-					Logger.vv("Finish Excluding xorkey, waiting, current time in UTC in " + System.DateTime.Now.ToUniversalTime().ToString("hh:mm:ss"));
+				if (triedXorKey >= upperBand)
 					break;
-				}
 			}
 		}
 
-		/// <summary>Guess the xorKey by the existing PatternMatching in here
+		/// <summary>Guess the xorKey by the existing StringMatching in here
 		/// <para>Alpha, on EncryptionVersion.V8 above
 		/// <para>Multiple parameters
 		/// <param name="peImage">Used to pass the peImage param.</param>
-		/// <param name="firstFoundXorKey">Used to specify the firstFoundXorKey for known pattern.</param>
+		/// <param name="firstFoundXorKey">Used to specify the firstFoundXorKey string for known pattern.</param>
 		/// <para>Author: Tianjiao(Wang Genghuang) at https://github.com/Tianjiao/de4dot
 		/// </summary>
-		private void PatternMatching(in MyPEImage peImage, uint firstFoundXorKey) {
+		private void StringMatching(in MyPEImage peImage, uint firstFoundXorKey) {
 
 			string firstXorKeyHex = "0x" + firstFoundXorKey.ToString("X");
 			int indexOf = 0;
@@ -172,7 +178,6 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 			var sb = new StringBuilder(firstXorKeyHex);
 			uint patternKeyValue = 0;
 
-			Logger.vv("Begin to Guess xorkey by PatternMatching, waiting, current time in UTC in " + System.DateTime.Now.ToUniversalTime().ToString("hh:mm:ss"));
 			for (int i = 0; i < hex.Length; i++) {
 				for (int k = 0; k < hex.Length; k++) {
 					if ((sb != null) && (indexOf >= 0) && (indexOf + 1 < sb.Length)) {
@@ -193,7 +198,6 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 					sb = new StringBuilder(firstXorKeyHex);
 				}
 			}
-			Logger.vv("Finish Guessing xorkey by PatternMatching, current time in UTC in " + System.DateTime.Now.ToUniversalTime().ToString("hh:mm:ss"));
 		}
 
 		static EncryptionVersion GetHeaderOffsetAndVersion(MyPEImage peImage, out uint headerOffset) {
