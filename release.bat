@@ -43,11 +43,11 @@ set OUTPUT1=%PRODUCTNAME%-%NETFRAMEWORK%.zip
 set OUTPUT2=%PRODUCTNAME%-%NETCOREVER%.zip
 
 cd %RELEASEDIR%\%NETFRAMEWORK%
-..\..\Tools\zip -9 -r %OUTPUT1% .
+..\..\Tools\zip -9 -q -r %OUTPUT1% .
 copy /y /b %OUTPUT1% ..\
 
 cd ..\..\%PRODUCTNAME%\%OUTPUTPATH%
-..\..\Tools\zip -9 -r %OUTPUT2% .
+..\..\Tools\zip -9 -q -r %OUTPUT2% .
 copy /y /b %OUTPUT2% ..\..\%RELEASEDIR%\
 
 cd ..\..\
