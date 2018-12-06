@@ -17,7 +17,7 @@
     along with de4dot.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if NET35
+#if NET35 || NET472
 using System;
 using System.Threading;
 using AssemblyData;
@@ -39,7 +39,7 @@ namespace de4dot.code.AssemblyClient {
 			appDomain = AppDomain.CreateDomain(Utils.RandomName(15, 20));
 			thread = new Thread(new ThreadStart(() => {
 				try {
-					appDomain.ExecuteAssembly(filename, null, new string[] {
+					appDomain.ExecuteAssembly(filename, new string[] {
 						((int)serviceType).ToString(), ipcName, ipcUri
 					});
 				}

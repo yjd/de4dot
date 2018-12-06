@@ -14,7 +14,7 @@ set PATH=%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\MSBuild\15.0
 Tools\nuget restore de4dot.netframework.sln
 
 set PRODUCTNAME=de4dot
-set NETFRAMEWORK=net35
+set NETFRAMEWORK=net472
 set NETCOREVER=netcoreapp2.1
 
 msbuild de4dot.netframework.sln /t:clean /m /p:Configuration=Release

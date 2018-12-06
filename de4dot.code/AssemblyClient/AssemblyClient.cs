@@ -23,7 +23,7 @@ using System.Runtime.Serialization;
 using System.Threading;
 using AssemblyData;
 
-#if !NET35
+#if !NET35 && !NET472
 namespace System.Runtime.Remoting {
 	class RemotingException : SystemException {
 	}
