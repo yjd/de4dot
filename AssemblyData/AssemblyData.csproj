@@ -2,8 +2,9 @@
 
   <Import Project="..\De4DotCommon.props" />
 
-  <ItemGroup>
-    <Reference Include="System.Runtime.Remoting" Condition=" '$(De4DotNetFramework)' == 'true' " />
+  <!-- Conditionally obtain references for the .NET Framework 4.7.2 target -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
+    <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
 
   <ItemGroup>
