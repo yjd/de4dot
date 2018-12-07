@@ -15,7 +15,7 @@ Tools\nuget restore de4dot.netframework.sln
 
 set PRODUCTNAME=de4dot
 set NETFRAMEWORK=net472
-set NETCOREVER=netcoreapp2.1
+set NETCOREVER=netcoreapp2.2
 
 msbuild de4dot.netframework.sln /t:clean /m /p:Configuration=Release
 echo "Building %NETFRAMEWORK% release..."
