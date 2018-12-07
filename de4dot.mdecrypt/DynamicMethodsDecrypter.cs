@@ -163,7 +163,7 @@ namespace de4dot.mdecrypt {
 					throw new ApplicationException("Module has already been initialized");
 
 				moduleToDecrypt = value;
-#if !NETSTANDARD2_0
+#if NET472 || NETCORE
 				hInstModule = Marshal.GetHINSTANCE(moduleToDecrypt);
 #endif
 				moduleToDecryptScope = GetScope(moduleToDecrypt);
