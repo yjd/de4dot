@@ -16,6 +16,7 @@ Tools\nuget restore de4dot.netframework.sln
 set PRODUCTNAME=de4dot
 set NETFRAMEWORK=net472
 set NETCOREVER=netcoreapp2.2
+set NETSTANDARD=netstandard2.0
 
 msbuild de4dot.netframework.sln /t:clean /m /p:Configuration=Release
 echo "Building %NETFRAMEWORK% release..."
@@ -53,4 +54,5 @@ copy /y /b %OUTPUT2% ..\..\%RELEASEDIR%\
 cd ..\..\
 rmdir /S /Q %RELEASEDIR%\%NETFRAMEWORK%
 rmdir /S /Q %PRODUCTNAME%\%OUTPUTPATH%
+rmdir /S /Q %RELEASEDIR%\%NETSTANDARD%
 echo %time%

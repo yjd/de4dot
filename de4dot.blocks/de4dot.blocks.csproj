@@ -2,6 +2,11 @@
 
   <Import Project="..\De4DotCommon.props" />
 
+  <PropertyGroup>
+    <!-- https://docs.microsoft.com/en-US/dotnet/standard/class-libraries --> 
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\dnlib\src\dnlib.csproj" />
   </ItemGroup>

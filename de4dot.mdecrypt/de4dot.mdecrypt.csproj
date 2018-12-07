@@ -1,6 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\De4DotCommon.props" />
+
+  <PropertyGroup>
+    <!-- https://docs.microsoft.com/en-US/dotnet/standard/class-libraries --> 
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+  </PropertyGroup>
 
   <PropertyGroup>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>

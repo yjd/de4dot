@@ -2,6 +2,11 @@
 
   <Import Project="..\De4DotCommon.props" />
 
+  <PropertyGroup>
+    <!-- https://docs.microsoft.com/en-US/dotnet/standard/class-libraries --> 
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+  </PropertyGroup>
+
   <!-- Conditionally obtain references for the .NET Framework 4.7.2 target -->
   <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
     <Reference Include="System.Runtime.Remoting" />
