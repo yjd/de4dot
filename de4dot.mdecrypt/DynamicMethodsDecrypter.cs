@@ -95,7 +95,9 @@ namespace de4dot.mdecrypt {
 		IntPtr jitterInstance;
 		IntPtr jitterVtbl;
 		Module moduleToDecrypt;
+#pragma warning disable CS0649
 		IntPtr hInstModule;
+#pragma warning restore CS0649
 		IntPtr ourCompMem;
 		bool compileMethodIsThisCall;
 		IntPtr ourCodeAddr;
@@ -161,7 +163,9 @@ namespace de4dot.mdecrypt {
 					throw new ApplicationException("Module has already been initialized");
 
 				moduleToDecrypt = value;
+#if !NETSTANDARD2_0
 				hInstModule = Marshal.GetHINSTANCE(moduleToDecrypt);
+#endif
 				moduleToDecryptScope = GetScope(moduleToDecrypt);
 
 				dnlibModule = ModuleDefMD.Load(hInstModule);

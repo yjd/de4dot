@@ -445,8 +445,10 @@ namespace de4dot.code.deobfuscators.CodeFort {
 #endif
 				createdTypes[info.name] = type;
 			}
+#if !NETSTANDARD2_0
 			foreach (var info in typeInfos)
 				createdTypes[info.name] = typeBuilders[info.name].CreateType();
+#endif
 			moduleBuilder = null;
 			enumBuilders = null;
 			typeBuilders = null;
