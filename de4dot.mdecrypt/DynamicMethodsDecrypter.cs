@@ -513,7 +513,8 @@ namespace de4dot.mdecrypt {
 				code = mh + headerSize;
 			}
 
-			CORINFO_METHOD_INFO info = default;
+			CORINFO_METHOD_INFO cORINFO_METHOD_INFO = default;
+			CORINFO_METHOD_INFO info = cORINFO_METHOD_INFO;
 			info.ILCode = new IntPtr(code);
 			info.ILCodeSize = ctx.dm.mhCodeSize;
 			info.maxStack = ctx.dm.mhMaxStack;
