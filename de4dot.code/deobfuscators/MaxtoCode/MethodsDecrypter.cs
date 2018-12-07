@@ -215,8 +215,8 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 				InitializeDecrypter();
 				// Reducing the keyspace for a brute force attack, see case: https://crypto.stackexchange.com/questions/25358/reducing-the-keyspace-for-a-brute-force-attack-on-a-chained-64-bit-xor
 				if (!InitializeInfos2()) {
-					// Ignore ApplicationException here, output text in Red on Console
-					Console.ForegroundColor = ConsoleColor.Red;
+					// Ignore ApplicationException here, warning in Yellow on Console
+					Console.ForegroundColor = ConsoleColor.Yellow;
 					Logger.w("Ignore ApplicationException, Could not decrypt methods.");
 					// Restore the original console colors.
 					Console.ResetColor();
