@@ -626,8 +626,10 @@ namespace de4dot.mdecrypt {
 					VirtualProtect(addr, info.Data.Length, oldProtect, out oldProtect);
 					return true;
 				}
+#pragma warning disable CA2153 // Do Not Catch Corrupted State Exceptions
 				catch {
 				}
+#pragma warning restore CA2153 // Do Not Catch Corrupted State Exceptions
 			}
 			return false;
 		}
@@ -666,8 +668,10 @@ namespace de4dot.mdecrypt {
 								return new IntPtr(p2 + 0x78);
 						}
 					}
+#pragma warning disable CA2153 // Do Not Catch Corrupted State Exceptions
 					catch {
 					}
+#pragma warning restore CA2153 // Do Not Catch Corrupted State Exceptions
 					try {
 						byte* p2 = (byte*)*(IntPtr**)p;
 						if ((ulong)p2 >= 0x10000) {
@@ -676,14 +680,18 @@ namespace de4dot.mdecrypt {
 								return new IntPtr(p2);
 						}
 					}
+#pragma warning disable CA2153 // Do Not Catch Corrupted State Exceptions
 					catch {
 					}
+#pragma warning restore CA2153 // Do Not Catch Corrupted State Exceptions
 					try {
 						if (*(IntPtr*)p == origValue)
 							return new IntPtr(p);
 					}
+#pragma warning disable CA2153 // Do Not Catch Corrupted State Exceptions
 					catch {
 					}
+#pragma warning restore CA2153 // Do Not Catch Corrupted State Exceptions
 				}
 			}
 			return IntPtr.Zero;

@@ -27,10 +27,12 @@ namespace de4dot.mdecrypt {
 		// Initialize this so only the methods decrypter method gets executed in
 		// <Module>::.cctor(). If null, all code in the original <Module>::.cctor()
 		// gets executed.
+		[NonSerialized]
 		public byte[] moduleCctorBytes;
 
 		// The metadata tokens of all methods to decrypt. Use null if all methods should
 		// be decrypted.
+		[NonSerialized]
 		public List<uint> methodsToDecrypt;
 	}
 }

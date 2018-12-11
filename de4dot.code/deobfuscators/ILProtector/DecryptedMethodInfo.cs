@@ -22,7 +22,9 @@ using System;
 namespace de4dot.code.deobfuscators.ILProtector {
 	[Serializable]
 	class DecryptedMethodInfo {
+		[NonSerialized]
 		public int id;
+		[NonSerialized]
 		public byte[] data;
 
 		public DecryptedMethodInfo(int id, int size) {

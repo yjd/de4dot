@@ -194,8 +194,10 @@ namespace de4dot.code.deobfuscators.ILProtector {
 
 					return true;
 				}
+#pragma warning disable CA2153 // Do Not Catch Corrupted State Exceptions
 				catch {
 				}
+#pragma warning restore CA2153 // Do Not Catch Corrupted State Exceptions
 
 				return false;
 			}
