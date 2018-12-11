@@ -43,6 +43,13 @@
     <LicenseFiles Include="$(SolutionDir)\COPYING" />
   </ItemGroup>
 
+   <ItemGroup>
+     <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="2.6.2">
+       <PrivateAssets>all</PrivateAssets>
+       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+     </PackageReference>
+   </ItemGroup>
+
   <Target Name="CopyLicenseFiles" AfterTargets="AfterBuild">
     <Copy SourceFiles="@(LicenseFiles)" DestinationFolder="$(TargetDir)LICENSES" />
   </Target>

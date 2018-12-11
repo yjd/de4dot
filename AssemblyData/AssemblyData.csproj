@@ -11,6 +11,12 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
     <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="2.6.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\de4dot.blocks\de4dot.blocks.csproj" />
