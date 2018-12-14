@@ -29,6 +29,16 @@ var cleansettings = new DotNetCoreCleanSettings
         OutputDirectory = buildDir + Directory("publish-" + netCoreVer)
      };
 
+var licensefiles = new [] {
+    "COPYING",
+    "LICENSE.de4dot.txt",
+    "LICENSE.dnlib.txt",
+    "LICENSE.ICSharpCode.SharpZipLib.txt",
+    "LICENSE.lzma.txt",
+    "LICENSE.lzmat.txt",
+    "LICENSE.QuickLZ.txt",
+    "LICENSE.randomc.txt"
+};
 //////////////////////////////////////////////////////////////////////
 // TASKS
 //////////////////////////////////////////////////////////////////////
@@ -88,12 +98,16 @@ Task("Zip-Files")
     .Does(() =>
 {
     // .NET Framework
+    CreateDirectory($"{buildDir}/{netFrameworkVer}/LICENSE");
+    CopyFiles(licensefiles, $"{buildDir}/{netFrameworkVer}/LICENSE");
     DeleteFiles($"{buildDir}/{netFrameworkVer}/*.pdb");
     DeleteFiles($"{buildDir}/{netFrameworkVer}/*.xml");
     DeleteFiles($"{buildDir}/{netFrameworkVer}/Test.Rename.*");
     Zip(buildDir + Directory(netFrameworkVer), $"{buildDir}/de4dot-{netFrameworkVer}.zip");
 
     // .NET Core
+    CreateDirectory($"{buildDir}/publish-{netCoreVer}/LICENSE");
+    CopyFiles(licensefiles, $"{buildDir}/publish-{netCoreVer}/LICENSE");
     DeleteFiles($"{buildDir}/publish-{netCoreVer}/*.pdb");
     DeleteFiles($"{buildDir}/publish-{netCoreVer}/*.xml");
     Zip(buildDir + Directory("publish-" + netCoreVer), $"{buildDir}/de4dot-{netCoreVer}.zip");
