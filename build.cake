@@ -52,7 +52,9 @@ Task("Build")
 {
       // Use MSBuild
       MSBuild("./de4dot.netframework.sln", settings =>
-        settings.SetConfiguration(configuration));
+        settings.SetConfiguration(configuration)
+        .SetMaxCpuCount(System.Environment.ProcessorCount)
+        );
 
 });
 
