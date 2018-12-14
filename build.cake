@@ -11,7 +11,22 @@ var configuration = Argument("configuration", "Release");
 //////////////////////////////////////////////////////////////////////
 
 // Define directories.
-var buildDir = Directory("./") + Directory(configuration);;
+var buildDir = Directory("./") + Directory(configuration);
+var netCoreVer = "netcoreapp2.2";
+
+var dotnetsettings = new DotNetCorePublishSettings
+    {
+        Framework = netCoreVer,
+        Configuration = "Release",
+        OutputDirectory = buildDir + Directory("publish-" + netCoreVer)
+    };
+
+var cleansettings = new DotNetCoreCleanSettings
+     {
+         Framework = netCoreVer,
+         Configuration = "Release",
+        OutputDirectory = buildDir + Directory("publish-" + netCoreVer)
+     };
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -40,6 +55,22 @@ Task("Build")
 
 });
 
+Task("NetCoreBuild")
+    .IsDependentOn("Build")
+    .Does(() =>
+{
+    DotNetCorePublish("de4dot", dotnetsettings);
+
+});
+
+Task("NetCoreClean")
+    .IsDependentOn("NetCoreBuild")
+    .Does(() =>
+{
+    DotNetCoreClean("de4dot", cleansettings);
+
+});
+
 //Task("Run-Unit-Tests")
     //.IsDependentOn("Build")
     //.Does(() =>
@@ -54,7 +85,7 @@ Task("Build")
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Build");
+    .IsDependentOn("NetCoreClean");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
