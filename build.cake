@@ -13,6 +13,7 @@ var configuration = Argument("configuration", "Release");
 // Define directories.
 var buildDir = Directory("./") + Directory(configuration);
 var netCoreVer = "netcoreapp2.2";
+var netFrameworkVer = "net472";
 
 var dotnetsettings = new DotNetCorePublishSettings
     {
@@ -80,12 +81,28 @@ Task("NetCoreClean")
         //});
 //});
 
+Task("Zip-Files")
+    .IsDependentOn("NetCoreClean")
+    .Does(() =>
+{
+    // .NET Framework
+    DeleteFiles($"{buildDir}/{netFrameworkVer}/*.pdb");
+    DeleteFiles($"{buildDir}/{netFrameworkVer}/*.xml");
+    DeleteFiles($"{buildDir}/{netFrameworkVer}/Test.Rename.*");
+    Zip(buildDir + Directory(netFrameworkVer), $"{buildDir}/de4dot-{netFrameworkVer}.zip");
+
+    // .NET Core
+    DeleteFiles($"{buildDir}/publish-{netCoreVer}/*.pdb");
+    DeleteFiles($"{buildDir}/publish-{netCoreVer}/*.xml");
+    Zip(buildDir + Directory("publish-" + netCoreVer), $"{buildDir}/de4dot-{netCoreVer}.zip");
+});
+
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("NetCoreClean");
+    .IsDependentOn("Zip-Files");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
