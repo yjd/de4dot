@@ -15,19 +15,26 @@ var buildDir = Directory("./") + Directory(configuration);
 var netCoreVer = "netcoreapp2.2";
 var netFrameworkVer = "net472";
 
-var dotnetsettings = new DotNetCorePublishSettings
+var msBuildSettings = new MSBuildSettings()
+    {
+        Configuration = configuration,
+        MaxCpuCount = System.Environment.ProcessorCount,
+        Verbosity = Verbosity.Normal
+    };
+
+var dotnetSettings = new DotNetCorePublishSettings
     {
         Framework = netCoreVer,
         Configuration = "Release",
         OutputDirectory = buildDir + Directory("publish-" + netCoreVer)
     };
 
-var cleansettings = new DotNetCoreCleanSettings
-     {
-         Framework = netCoreVer,
-         Configuration = "Release",
-        OutputDirectory = buildDir + Directory("publish-" + netCoreVer)
-     };
+var cleanSettings = new DotNetCoreCleanSettings
+    {
+        Framework = dotnetSettings.Framework,
+        Configuration = dotnetSettings.Configuration,
+        OutputDirectory = dotnetSettings.OutputDirectory
+    };
 
 var licensefiles = new [] {
     "COPYING",
@@ -46,6 +53,8 @@ var licensefiles = new [] {
 Task("Clean")
     .Does(() =>
 {
+    CleanDirectories("./**/bin/" + configuration);
+    CleanDirectories("./**/obj");
     CleanDirectory(buildDir);
 });
 
@@ -61,10 +70,7 @@ Task("Build")
     .Does(() =>
 {
       // Use MSBuild
-      MSBuild("./de4dot.netframework.sln", settings =>
-        settings.SetConfiguration(configuration)
-        .SetMaxCpuCount(System.Environment.ProcessorCount)
-        );
+      MSBuild("./de4dot.netframework.sln", msBuildSettings);
 
 });
 
@@ -72,7 +78,7 @@ Task("NetCoreBuild")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    DotNetCorePublish("de4dot", dotnetsettings);
+    DotNetCorePublish("de4dot", dotnetSettings);
 
 });
 
@@ -80,7 +86,7 @@ Task("NetCoreClean")
     .IsDependentOn("NetCoreBuild")
     .Does(() =>
 {
-    DotNetCoreClean("de4dot", cleansettings);
+    DotNetCoreClean("de4dot", cleanSettings);
 
 });
 
@@ -98,19 +104,19 @@ Task("Zip-Files")
     .Does(() =>
 {
     // .NET Framework
-    CreateDirectory($"{buildDir}/{netFrameworkVer}/LICENSE");
-    CopyFiles(licensefiles, $"{buildDir}/{netFrameworkVer}/LICENSE");
-    DeleteFiles($"{buildDir}/{netFrameworkVer}/*.pdb");
-    DeleteFiles($"{buildDir}/{netFrameworkVer}/*.xml");
-    DeleteFiles($"{buildDir}/{netFrameworkVer}/Test.Rename.*");
-    Zip(buildDir + Directory(netFrameworkVer), $"{buildDir}/de4dot-{netFrameworkVer}.zip");
+    CreateDirectory(buildDir + Directory(netFrameworkVer) + Directory("LICENSE"));
+    CopyFiles(licensefiles, buildDir + Directory(netFrameworkVer) + Directory("LICENSE"));
+    DeleteFiles(GetFiles(MakeAbsolute(buildDir + Directory(netFrameworkVer)) + File("/*.pdb")));
+    DeleteFiles(GetFiles(MakeAbsolute(buildDir + Directory(netFrameworkVer)) + File("/*.xml")));
+    DeleteFiles(GetFiles(MakeAbsolute(buildDir + Directory(netFrameworkVer)) + File("/Test.Rename.*")));
+    Zip(buildDir + Directory(netFrameworkVer), Directory(configuration) + File("de4dot-" + netFrameworkVer + ".zip"));
 
     // .NET Core
-    CreateDirectory($"{buildDir}/publish-{netCoreVer}/LICENSE");
-    CopyFiles(licensefiles, $"{buildDir}/publish-{netCoreVer}/LICENSE");
-    DeleteFiles($"{buildDir}/publish-{netCoreVer}/*.pdb");
-    DeleteFiles($"{buildDir}/publish-{netCoreVer}/*.xml");
-    Zip(buildDir + Directory("publish-" + netCoreVer), $"{buildDir}/de4dot-{netCoreVer}.zip");
+    CreateDirectory(buildDir + Directory("publish-" + netCoreVer) + Directory("LICENSE"));
+    CopyFiles(licensefiles, buildDir + Directory("publish-" + netCoreVer) + Directory("LICENSE"));
+    DeleteFiles(GetFiles(MakeAbsolute(dotnetsettings.OutputDirectory) + File("/*.pdb")));
+    DeleteFiles(GetFiles(MakeAbsolute(dotnetsettings.OutputDirectory) + File("*.xml")));
+    Zip(dotnetsettings.OutputDirectory, Directory(configuration) + File("de4dot-" + netCoreVer + ".zip"));
 });
 
 //////////////////////////////////////////////////////////////////////
