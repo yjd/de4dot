@@ -4,6 +4,12 @@ Read it before
 
 [致中国区用户的一封信](致中国区用户的一封信.md)
 
+## Build status
+
+| Build server | Platform     | Build status                                                                                                                                  |
+|--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| AppVeyor     | Windows      | [![](https://img.shields.io/appveyor/ci/Tianjiao/de4dot/master.svg)](https://ci.appveyor.com/project/Tianjiao/de4dot/branch/master) |
+
 Note
 ------------
 
@@ -21,7 +27,7 @@ It uses [dnlib](https://github.com/0xd4d/dnlib/) to read and write assemblies so
 Binaries
 ========
 
-Get binaries from the [build server](https://ci.appveyor.com/project/0xd4d/de4dot/branch/master/artifacts).
+Get binaries from the [build server](https://ci.appveyor.com/project/Tianjiao/de4dot/branch/master/artifacts).
 
 It's FREE but there's NO SUPPORT
 ================================
