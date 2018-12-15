@@ -1,0 +1,72 @@
+# https://www.appveyor.com/docs/appveyor-yml/
+# https://ci.appveyor.com/project/0xd4d/de4dot
+# https://github.com/joaope/LocalAppVeyor/blob/master/appveyor.yml
+# Alpha, for testing
+
+version: 1.0.{build}
+
+branches:
+  only:
+    - master
+
+skip_tags: true
+
+image: Visual Studio 2017
+
+clone_folder: C:\projects\de4dot
+
+init:
+  - dotnet --info
+
+configuration: Release
+
+install:
+  - git submodule update --init --recursive
+
+before_build:
+  - appveyor-retry nuget restore de4dot.netframework.sln
+
+build_script:
+  parallel: true
+  project: de4dot.netframework.sln
+  verbosity: normal
+
+after_build:
+  - del Release\net472\*.pdb Release\net472\*.xml Release\net472\Test.Rename.*
+  - dotnet restore de4dot.netcore.sln
+  - dotnet publish -c Release -f netcoreapp2.2 -o publish-netcoreapp2.2 de4dot
+  - del de4dot\publish-netcoreapp2.2\*.pdb
+  - del de4dot\publish-netcoreapp2.2\*.xml
+
+test: off
+
+artifacts:
+
+  - path: de4dot/publish-netcoreapp2.2
+    name: de4dot-netcoreapp2.2
+  - path: Release/net472
+    name: de4dot-net472
+
+
+#deploy:
+
+#  - provider: GitHub
+#    artifact: /de4dot-*          
+#    draft: false
+#    prerelease: false
+#    on:
+#      branch: master                
+#      appveyor_repo_tag: true
+#      configuration: release
+#    skip_symbols: true       
+
+notifications:
+
+  - provider: Email
+    to:
+      - wangtianjiao.wang959@gmail.com
+    subject: 'Build {{status}}'                  
+    message: "{{message}}, {{commitId}}, ..."    
+    on_build_success: true
+    on_build_failure: true
+    on_build_status_changed: true
