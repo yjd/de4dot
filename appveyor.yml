@@ -26,7 +26,7 @@ install:
 before_build:
   - appveyor-retry nuget restore de4dot.netframework.sln
 
-build_script:
+build:
   parallel: true
   project: de4dot.netframework.sln
   verbosity: normal
