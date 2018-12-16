@@ -10,14 +10,14 @@ matrix:
 
     - os: osx
       osx_image: xcode10.1
-      mono: 5.18.0.219
+      mono: 5.18.0
       dotnet: 2.2.101
 
     - os: windows
       mono: none
 
 before_install:
-
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update; fi
   - dotnet --info
   - git fetch --unshallow # Travis always does a shallow clone, but GitVersion needs the full history including branches and tags
   - git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
