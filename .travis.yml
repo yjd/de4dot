@@ -23,10 +23,10 @@ before_install:
   - git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
   - git fetch origin
 
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install mono --pre; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install dotnetcore-sdk --pre; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install mono; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install dotnetcore-sdk; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then dotnet --info; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nuget.commandline --pre; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nuget.commandline; fi
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./build.sh --verbosity diagnostic; fi
