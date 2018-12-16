@@ -5,12 +5,12 @@ matrix:
     - os: linux
       dist: xenial
       sudo: required
-      mono: 5.23.0
+      mono: 5.18.0
       dotnet: 2.2.101
 
     - os: osx
       osx_image: xcode10.1
-      mono: 5.23.0
+      mono: 5.18.0.219
       dotnet: 2.2.101
 
     - os: windows
