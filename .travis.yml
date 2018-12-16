@@ -5,7 +5,7 @@ matrix:
     - os: linux
       dist: xenial
       sudo: required
-      mono: 5.18.0
+      mono: nightly
       dotnet: 2.2.101
 
     - os: osx
