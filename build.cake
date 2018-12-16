@@ -114,9 +114,9 @@ Task("Zip-Files")
     // .NET Core
     CreateDirectory(buildDir + Directory("publish-" + netCoreVer) + Directory("LICENSE"));
     CopyFiles(licensefiles, buildDir + Directory("publish-" + netCoreVer) + Directory("LICENSE"));
-    DeleteFiles(GetFiles(MakeAbsolute(dotnetsettings.OutputDirectory) + File("/*.pdb")));
-    DeleteFiles(GetFiles(MakeAbsolute(dotnetsettings.OutputDirectory) + File("*.xml")));
-    Zip(dotnetsettings.OutputDirectory, Directory(configuration) + File("de4dot-" + netCoreVer + ".zip"));
+    DeleteFiles(GetFiles(MakeAbsolute(dotnetSettings.OutputDirectory) + File("/*.pdb")));
+    DeleteFiles(GetFiles(MakeAbsolute(dotnetSettings.OutputDirectory) + File("*.xml")));
+    Zip(dotnetSettings.OutputDirectory, Directory(configuration) + File("de4dot-" + netCoreVer + ".zip"));
 });
 
 //////////////////////////////////////////////////////////////////////
