@@ -26,13 +26,10 @@
     <ProjectReference Include="..\dnlib\src\dnlib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-   <!-- https://docs.microsoft.com/en-us/dotnet/core/porting/third-party-deps#net-framework-compatibility-mode --> 
-    <Reference Include="System.Runtime.Remoting" NoWarn="NU1701" />
-  </ItemGroup>
+  <!-- https://docs.microsoft.com/en-us/dotnet/core/porting/libraries#remoting --> 
 
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="4.5.1" NoWarn="NU1701" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
   </ItemGroup>
 
    <ItemGroup>

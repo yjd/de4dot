@@ -7,10 +7,7 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 
-  <ItemGroup>
-    <!-- https://docs.microsoft.com/en-us/dotnet/core/porting/third-party-deps#net-framework-compatibility-mode -->
-    <Reference Include="System.Runtime.Remoting" NoWarn="NU1701" />
-  </ItemGroup>
+    <!-- https://docs.microsoft.com/en-us/dotnet/core/porting/libraries#remoting --> 
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="2.6.2">
