@@ -23,30 +23,22 @@ configuration: Release
 install:
   - git submodule update --init --recursive
 
-before_build:
-  - appveyor-retry nuget restore de4dot.netframework.sln
-
-build:
-  parallel: true
-  project: de4dot.netframework.sln
-  verbosity: normal
-
-after_build:
-  - del Release\net472\*.pdb Release\net472\*.xml Release\net472\Test.Rename.*
-  - dotnet restore de4dot.netcore.sln
-  - dotnet publish -c Release -f netcoreapp2.2 -o publish-netcoreapp2.2 de4dot
-  - del de4dot\publish-netcoreapp2.2\*.pdb
-  - del de4dot\publish-netcoreapp2.2\*.xml
+build_script:
+  - ps: .\build.ps1
 
 test: off
 
 artifacts:
 
-  - path: de4dot/publish-netcoreapp2.2
+  - path: Release/publish-netcoreapp2.2
     name: de4dot-netcoreapp2.2
   - path: Release/net472
     name: de4dot-net472
 
+# Build cache
+cache:
+  - tools -> build.cake
+  - packages -> build.cake
 
 #deploy:
 
