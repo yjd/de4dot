@@ -7,10 +7,11 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 
-  <!-- Conditionally obtain references for the .NET Framework 4.7.2 target -->
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
-    <Reference Include="System.Runtime.Remoting" />
+  <ItemGroup>
+    <!-- https://docs.microsoft.com/en-us/dotnet/core/porting/third-party-deps#net-framework-compatibility-mode -->
+    <Reference Include="System.Runtime.Remoting" NoWarn="NU1701" />
   </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.NetFramework.Analyzers" Version="2.6.2">
       <PrivateAssets>all</PrivateAssets>
