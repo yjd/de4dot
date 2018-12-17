@@ -3,8 +3,8 @@
   <Import Project="..\De4DotCommon.props" />
 
   <PropertyGroup>
-    <!-- https://docs.microsoft.com/en-US/dotnet/standard/class-libraries --> 
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <!-- DLL for test --> 
+    <TargetFrameworks>net472;netcoreapp2.2</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
