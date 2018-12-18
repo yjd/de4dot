@@ -12,35 +12,35 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
-  - script: |
-    echo hello from Linux
-    git submodule update --init --recursive
-    mono --version
-    dotnet --info
-    .\build.sh
+  - script: 
+    - echo hello from Linux
+    - git submodule update --init --recursive
+    - mono --version
+    - dotnet --info
+    - .\build.sh
 
 - job: macOS
   pool:
     vmImage: 'macOS-10.13'
   steps:
-  - script: |
-    echo hello from macOS
-    git submodule update --init --recursive
-    mono --version
-    dotnet --info
-    .\build.sh
+  - script: 
+    - echo hello from macOS
+    - git submodule update --init --recursive
+    - mono --version
+    - dotnet --info
+    - .\build.sh
 
 - job: Windows
   pool:
     vmImage: 'vs2017-win2016'
   steps:
-  - script: |
-    echo hello from Windows
-    git submodule update --init --recursive
-    choco install dotnetcore-sdk --ignore-dependencies
-    dotnet --info
-    choco install nuget.commandline
-    powershell Get-ExecutionPolicy -List
-    powershell .\build.ps1
+  - script: 
+    - echo hello from Windows
+    - git submodule update --init --recursive
+    - choco install dotnetcore-sdk --ignore-dependencies
+    - dotnet --info
+    - choco install nuget.commandline
+    - powershell Get-ExecutionPolicy -List
+    - powershell .\build.ps1
 
 
