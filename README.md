@@ -8,8 +8,9 @@ Read it before
 
 | Build server | Platform     | Build status                                                                                                                                  |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| AppVeyor     | Windows      | [![](https://img.shields.io/appveyor/ci/Tianjiao/de4dot/master.svg)](https://ci.appveyor.com/project/Tianjiao/de4dot/branch/master) |
-| Travis       | Linux / OS X / Windows      | [![](https://travis-ci.org/Tianjiao/de4dot.svg?branch=master)](https://travis-ci.org/Tianjiao/de4dot) |                                        |     
+| AppVeyor     | Windows      | [![Build Status](https://img.shields.io/appveyor/ci/Tianjiao/de4dot/master.svg)](https://ci.appveyor.com/project/Tianjiao/de4dot/branch/master) |
+| Travis       | Linux / macOS / Windows      | [![Build Status](https://travis-ci.org/Tianjiao/de4dot.svg?branch=master)](https://travis-ci.org/Tianjiao/de4dot) |                                        |     
+| Azure Pipelines       | Linux / macOS / Windows      | [![Build Status](https://dev.azure.com/TianjiaoW/de4dot/_apis/build/status/Tianjiao.de4dot?branchName=master)](https://dev.azure.com/TianjiaoW/de4dot/_build/latest?definitionId=1?branchName=master) |                                        |    
 
 Note
 ------------
