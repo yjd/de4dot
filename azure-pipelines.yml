@@ -18,7 +18,7 @@ jobs:
       mono --version
       echo "deb http://download.mono-project.com/repo/ubuntu alpha main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-alpha.list
       sudo apt-get update
-      sudo apt-get install mono-complete
+      sudo apt-get install mono-alpha
       mono --version
       dotnet --info
       ./build.sh
@@ -32,7 +32,7 @@ jobs:
       git submodule update --init --recursive
       mono --version
       wget --retry-connrefused --waitretry=1 -O /tmp/mdk.pkg http://download.mono-project.com/archive/5.18.0/macos-10-universal/MonoFramework-MDK-5.18.0.macos10.xamarin.universal.pkg
-      sudo installer -pkg /tmp/mdk.pkg
+      sudo installer -pkg /tmp/mdk.pkg -target /
       mono --version
       dotnet --info
       ./build.sh
