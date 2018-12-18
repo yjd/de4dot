@@ -15,6 +15,9 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- script: |
+    git submodule update --init --recursive
+
 - task: NuGetToolInstaller@0
 
 - task: NuGetCommand@2
