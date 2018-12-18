@@ -17,6 +17,7 @@ variables:
 steps:
 - script: |
     git submodule update --init --recursive
+    choco install dotnetcore-sdk
 
 - task: NuGetToolInstaller@0
 
