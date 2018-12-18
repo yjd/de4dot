@@ -10,26 +10,13 @@ trigger:
 pool:
   vmImage: 'VS2017-Win2016'
 
-variables:
-  solution: '*.netframework.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
 steps:
 - script: |
     git submodule update --init --recursive
     choco install dotnetcore-sdk --ignore-dependencies
     dotnet --info
+    choco install nuget-commandline
+    powershell Get-ExecutionPolicy -List
+    .\build.ps1
 
-- task: NuGetToolInstaller@0
-
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
 
