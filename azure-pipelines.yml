@@ -16,7 +16,7 @@ jobs:
       echo hello from Linux
       git submodule update --init --recursive
       mono --version
-      echo "deb http://download.mono-project.com/repo/ubuntu alpha-xenial main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-alpha.list
+      echo "deb http://download.mono-project.com/repo/ubuntu preview-xenial main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-preview.list
       sudo apt-get update
       sudo apt-get upgrade mono-complete
       mono --version
