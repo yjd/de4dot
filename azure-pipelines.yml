@@ -6,35 +6,6 @@
 trigger:
 - master
 - azure-pipelines
-<<<<<<< HEAD
-
-pool:
-  vmImage: 'VS2017-Win2016'
-
-variables:
-  solution: '*.netframework.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
-steps:
-- script: |
-    git submodule update --init --recursive
-    powershell Get-ExecutionPolicy -List
-    powershell Set-ExecutionPolicy RemoteSigned -Scope LocalMachine
-    powershell -NoProfile -ExecutionPolicy unrestricted -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -useb 'https://dot.net/v1/dotnet-install.ps1'))) --version 2.2.101"
-
-- task: NuGetToolInstaller@0
-
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-=======
 
 jobs:
 - job: Linux
@@ -79,5 +50,4 @@ jobs:
       powershell Get-ExecutionPolicy -List
       powershell .\build.ps1
 
->>>>>>> azure-pipelines
 
