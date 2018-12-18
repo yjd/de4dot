@@ -5,6 +5,7 @@
 
 trigger:
 - master
+- azure-pipelines
 
 pool:
   vmImage: 'VS2017-Win2016'
@@ -17,7 +18,9 @@ variables:
 steps:
 - script: |
     git submodule update --init --recursive
-    choco upgrade dotnetcore-sdk
+    powershell Get-ExecutionPolicy -List
+    powershell -NoProfile -ExecutionPolicy unrestricted -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -useb 'https://dot.net/v1/dotnet-install.ps1'))) --version 2.2.101"
+    dotnet --info
 
 - task: NuGetToolInstaller@0
 
