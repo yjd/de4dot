@@ -18,8 +18,7 @@ variables:
 steps:
 - script: |
     git submodule update --init --recursive
-    powershell Get-ExecutionPolicy -List
-    powershell -NoProfile -ExecutionPolicy unrestricted -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -useb 'https://dot.net/v1/dotnet-install.ps1'))) --version 2.2.101"
+    choco install dotnet-sdk --ignore-dependencies
     dotnet --info
 
 - task: NuGetToolInstaller@0
