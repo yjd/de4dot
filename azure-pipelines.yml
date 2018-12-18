@@ -17,6 +17,6 @@ steps:
     dotnet --info
     choco install nuget.commandline
     powershell Get-ExecutionPolicy -List
-    ./build.ps1
+    build.ps1
 
 
