@@ -29,13 +29,17 @@ for:
       - image: Ubuntu
   install:
     - git submodule update --init --recursive
+    - wget -q https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb
+    - sudo dpkg -i packages-microsoft-prod.deb
+    - sudo apt-get install apt-transport-https
+    - sudo apt-get update
+    - sudo apt-get install dotnet-sdk-2.2
+    - dotnet --info
     - mono --version
     - echo "deb http://download.mono-project.com/repo/ubuntu beta-xenial main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-beta.list
     - sudo apt-get update
-    - sudo apt-get --yes --force-yes upgrade mono-complete
+    - sudo apt-get --yes --allow-unauthenticated upgrade mono-complete
     - mono --version
-    - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 2.2.101
-    - dotnet --info
 
   build_script:
   - sh: ./build.sh
