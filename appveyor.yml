@@ -26,13 +26,13 @@ for:
 -
   matrix:
     only:
-      - image: Ubuntu
+      - image: Ubuntu1804
   install:
     - git submodule update --init --recursive
     - mono --version
-    - echo "deb http://download.mono-project.com/repo/ubuntu beta-xenial main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-beta.list
+    - echo "deb http://download.mono-project.com/repo/ubuntu beta-bionic main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-beta.list
     - sudo apt-get update
-    - sudo apt-get upgrade mono-complete
+    - sudo apt-get --yes --force-yes upgrade mono-complete
     - mono --version
     - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 2.2.101
     - dotnet --info
