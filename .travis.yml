@@ -27,7 +27,7 @@ before_install:
   - git fetch origin
 
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then docker pull microsoft/dotnet:2.2-sdk; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then docker run -d microsoft/dotnet:2.2-sdk; fi
+#  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then docker run -d microsoft/dotnet:2.2-sdk; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then dotnet --info; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then docker ps -a; fi
 #  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nuget.commandline; fi
@@ -37,7 +37,7 @@ script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./build.sh --verbosity diagnostic; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell Get-ExecutionPolicy -List; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell Set-ExecutionPolicy RemoteSigned -Scope LocalMachine; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell ./build.ps1; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then docker run -d microsoft/dotnet:2.2-sdk -c "./build.ps1"; fi
 
 cache:
   directories:
