@@ -28,8 +28,15 @@ for:
     only:
       - image: Ubuntu
   install:
-  - git submodule update --init --recursive
-  - mono --version
+    - git submodule update --init --recursive
+    - mono --version
+    - echo "deb http://download.mono-project.com/repo/ubuntu beta-xenial main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-beta.list
+    - sudo apt-get update
+    - sudo apt-get upgrade mono-complete
+    - mono --version
+    - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 2.2.101
+    - dotnet --info
+
   build_script:
   - sh: ./build.sh
 
