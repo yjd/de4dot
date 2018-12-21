@@ -5,25 +5,41 @@
 
 version: 1.0.{build}
 
-branches:
-  only:
-    - master
-
 skip_tags: true
 
-image: Visual Studio 2017
-
-clone_folder: C:\projects\de4dot
+image: 
+  - Visual Studio 2017
+  - Ubuntu
 
 init:
   - dotnet --info
+
+environment:
+  APPVEYOR_YML_DISABLE_PS_LINUX: true
 
 configuration: Release
 
 install:
   - git submodule update --init --recursive
 
-build_script:
+for:
+-
+  matrix:
+    only:
+      - image: Ubuntu
+  install:
+  - git submodule update --init --recursive
+  - mono --version
+  build_script:
+  - sh: ./build.sh
+
+-
+  matrix:
+    only:
+      - image: Visual Studio 2017
+  install:
+    - git submodule update --init --recursive
+  build_script:
   - ps: .\build.ps1
 
 test: off
