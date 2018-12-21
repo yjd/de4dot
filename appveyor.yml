@@ -27,7 +27,6 @@ for:
   matrix:
     only:
       - image: Ubuntu 1804
-  solution: de4dot.netframework.sln
   install:
     - git submodule update --init --recursive
     - mono --version
