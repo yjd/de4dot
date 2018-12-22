@@ -18,6 +18,7 @@
 */
 
 using System.Collections.Generic;
+using System.Globalization;
 using dnlib.DotNet;
 using de4dot.blocks;
 
@@ -69,7 +70,7 @@ namespace de4dot.code.deobfuscators.dotNET_Reactor.v3 {
 					continue;
 
 				for (int i = 0; ; i++) {
-					var resource = DotNetUtils.GetResource(module, resourcePrefix + i.ToString("D5")) as EmbeddedResource;
+					var resource = DotNetUtils.GetResource(module, resourcePrefix + i.ToString("D5", CultureInfo.CurrentCulture)) as EmbeddedResource;
 					if (resource == null)
 						break;
 					resources.Add(resource);

@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
@@ -152,7 +153,7 @@ namespace de4dot.code.renamer {
 					if (!fieldDef.FieldDef.IsStatic || !fieldDef.FieldDef.IsLiteral)
 						continue;
 					if (!checker.IsValidFieldName(fieldInfo.oldName))
-						fieldInfo.Rename(string.Format(nameFormat, i));
+						fieldInfo.Rename(string.Format(CultureInfo.CurrentCulture, nameFormat, i));
 					i++;
 				}
 			}

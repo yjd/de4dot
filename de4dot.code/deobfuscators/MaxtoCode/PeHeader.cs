@@ -19,6 +19,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using dnlib.PE;
 
@@ -122,7 +123,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 			var ts = stopWatch.Elapsed;
 
 			// Format and display the TimeSpan value.
-			string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+			string elapsedTime = String.Format(CultureInfo.CurrentCulture, "{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
 			Logger.vv("Finish Guessing xorkey, RunTime " + elapsedTime);
 		}
 
@@ -150,7 +151,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 					}
 					Logger.vv("Guessed possible xorkey found at");
 					Logger.Instance.Indent();
-					Logger.vv("0x" + triedXorKey.ToString("X"));
+					Logger.vv("0x" + triedXorKey.ToString("X", CultureInfo.CurrentCulture));
 					Logger.Instance.DeIndent();
 					Logger.vv("_________________________________");
 				}
@@ -169,7 +170,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 		/// </summary>
 		private void StringMatching(in MyPEImage peImage, uint firstFoundXorKey) {
 
-			string firstXorKeyHex = "0x" + firstFoundXorKey.ToString("X");
+			string firstXorKeyHex = "0x" + firstFoundXorKey.ToString("X", CultureInfo.CurrentCulture);
 			int indexOf = 0;
 			if (firstXorKeyHex != null)
 				indexOf = firstXorKeyHex.Length / 2;
@@ -191,7 +192,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 					if (CheckMcKeyRva(peImage, patternKeyValue)) {
 						Logger.vv("Guessed possible xorkey by PatternMatching found at");
 						Logger.Instance.Indent();
-						Logger.vv("0x" + patternKeyValue.ToString("X"));
+						Logger.vv("0x" + patternKeyValue.ToString("X", CultureInfo.CurrentCulture));
 						Logger.Instance.DeIndent();
 						Logger.vv("_________________________________");
 					}
@@ -266,13 +267,13 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 					// Print Successful MagicLo from Rva900h
 					Logger.vv("The used MagicLo from Rva900h is");
 					Logger.Instance.Indent();
-					Logger.vv("MagicLo = 0x" + m1lo.ToString("X"));
+					Logger.vv("MagicLo = 0x" + m1lo.ToString("X", CultureInfo.CurrentCulture));
 					Logger.Instance.DeIndent();
 
 					// Print Successful MagicHi from Rva900h			
 					Logger.vv("The used MagicHi from Rva900h is");
 					Logger.Instance.Indent();
-					Logger.vv("MagicHi = 0x" + m1hi.ToString("X"));
+					Logger.vv("MagicHi = 0x" + m1hi.ToString("X", CultureInfo.CurrentCulture));
 					Logger.Instance.DeIndent();
 					Logger.vv("_________________________________");
 

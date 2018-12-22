@@ -18,6 +18,7 @@
 */
 
 using System;
+using System.Globalization;
 
 namespace de4dot.blocks.cflow {
 	public class Int64Value : Value {
@@ -559,7 +560,7 @@ namespace de4dot.blocks.cflow {
 
 		public override string ToString() {
 			if (AllBitsValid())
-				return Value.ToString();
+				return Value.ToString(CultureInfo.CurrentCulture);
 			return $"0x{Value:X8}L({ValidMask:X8})";
 		}
 	}

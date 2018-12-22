@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using dnlib.DotNet;
 using de4dot.blocks;
 
@@ -148,10 +149,10 @@ namespace de4dot.code.deobfuscators.SmartAssembly {
 			if (val.Groups.Count < 6)
 				return;
 			ObfuscatorName = val.Groups[1].ToString();
-			approxVersion = new Version(int.Parse(val.Groups[2].ToString()),
-										int.Parse(val.Groups[3].ToString()),
-										int.Parse(val.Groups[4].ToString()),
-										int.Parse(val.Groups[5].ToString()));
+			approxVersion = new Version(int.Parse(val.Groups[2].ToString(), CultureInfo.CurrentCulture),
+										int.Parse(val.Groups[3].ToString(), CultureInfo.CurrentCulture),
+										int.Parse(val.Groups[4].ToString(), CultureInfo.CurrentCulture),
+										int.Parse(val.Groups[5].ToString(), CultureInfo.CurrentCulture));
 			return;
 		}
 

@@ -66,8 +66,8 @@ namespace de4dot.code.deobfuscators.Skater_NET {
 					throw new ApplicationException("Invalid encrypted string");
 				var sb = new StringBuilder(ints.Length / 3);
 				for (int i = 0; i < ints.Length; i += 3) {
-					int val1 = int.Parse(ints[i]);
-					int val2 = int.Parse(ints[i + 1]);
+					int val1 = int.Parse(ints[i], CultureInfo.CurrentCulture);
+					int val2 = int.Parse(ints[i + 1], CultureInfo.CurrentCulture);
 					if ((double)val2 / 2.0 == Math.Round((double)val2 / 2.0))
 						val1 += val1;
 					sb.Append((char)val1);

@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using dnlib.DotNet;
@@ -386,7 +387,7 @@ namespace de4dot.code.deobfuscators.Babel_NET {
 					return true;
 				}
 				else if (fn == "System.Int32 System.Int32::Parse(System.String)") {
-					emulator.Push(new Int32Value(int.Parse(((StringValue)emulator.Pop()).value)));
+					emulator.Push(new Int32Value(int.Parse(((StringValue)emulator.Pop()).value, CultureInfo.CurrentCulture)));
 					return true;
 				}
 				else if (fn == "System.String[] System.String::Split(System.Char[])") {

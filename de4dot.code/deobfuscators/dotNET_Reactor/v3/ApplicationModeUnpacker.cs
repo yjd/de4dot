@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -175,7 +176,7 @@ namespace de4dot.code.deobfuscators.dotNET_Reactor.v3 {
 				return null;
 			var list = new List<uint>();
 			foreach (var num in sizes.Split('|'))
-				list.Add(uint.Parse(num));
+				list.Add(uint.Parse(num, CultureInfo.CurrentCulture));
 			return list.ToArray();
 		}
 
