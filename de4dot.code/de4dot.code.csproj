@@ -26,15 +26,9 @@
     <ProjectReference Include="..\dnlib\src\dnlib.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
-    <Reference Include="System.Runtime.Remoting" />
-  </ItemGroup>
+  <!-- https://docs.microsoft.com/en-us/dotnet/core/porting/libraries#remoting --> 
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
-    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+  <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
   </ItemGroup>
 

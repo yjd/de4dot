@@ -1,0 +1,53 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+trigger:
+- master
+- azure-pipelines
+
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: |
+      echo hello from Linux
+      git submodule update --init --recursive
+      mono --version
+      echo "deb http://download.mono-project.com/repo/ubuntu beta-xenial main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-beta.list
+      sudo apt-get update
+      sudo apt-get upgrade mono-complete
+      mono --version
+      dotnet --info
+      ./build.sh
+
+- job: macOS
+  pool:
+    vmImage: 'macOS-10.13'
+  steps:
+  - script: |
+      echo hello from macOS
+      git submodule update --init --recursive
+      mono --version
+      wget --retry-connrefused --waitretry=1 -O /tmp/mdk.pkg http://download.mono-project.com/archive/5.18.0/macos-10-universal/MonoFramework-MDK-5.18.0.macos10.xamarin.universal.pkg
+      sudo installer -pkg /tmp/mdk.pkg -target /
+      mono --version
+      dotnet --info
+      ./build.sh
+
+- job: Windows
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - script: |
+      echo hello from Windows
+      git submodule update --init --recursive
+      choco install dotnetcore-sdk --ignore-dependencies
+      dotnet --info
+      choco install nuget.commandline
+      powershell Get-ExecutionPolicy -List
+      powershell .\build.ps1
+
+

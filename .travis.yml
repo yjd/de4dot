@@ -1,0 +1,50 @@
+language: csharp
+
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+      sudo: required
+      mono: beta
+      dotnet: 2.2.101
+
+    - os: osx
+      osx_image: xcode10.1
+      mono: 5.18.0
+      dotnet: 2.2.101
+
+    - os: windows
+      mono: none
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update; fi
+  - dotnet --info
+  - git fetch --unshallow # Travis always does a shallow clone, but GitVersion needs the full history including branches and tags
+  - git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+  - git fetch origin
+
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install mono; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install dotnetcore-sdk; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then dotnet --info; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nuget.commandline; fi
+
+script:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./build.sh --verbosity diagnostic; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./build.sh --verbosity diagnostic; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell Get-ExecutionPolicy -List; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell Set-ExecutionPolicy RemoteSigned -Scope LocalMachine; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell ./build.ps1; fi
+
+cache:
+  directories:
+    - .packages
+    - tools/Addins
+    - tools/gitreleasemanager
+    - tools/GitVersion.CommandLine
+
+notifications:
+  email:
+    recipients:
+      - wangtianjiao.wang959@gmail.com
+    on_success: always # default: change
+    on_failure: always # default: always

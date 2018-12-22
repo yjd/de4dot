@@ -4,6 +4,14 @@ Read it before
 
 [致中国区用户的一封信](致中国区用户的一封信.md)
 
+## Build status
+
+| Build server | Platform     | Build status                                                                                                                                  |
+|--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| AppVeyor     | Linux / Windows      | [![Build Status](https://img.shields.io/appveyor/ci/Tianjiao/de4dot/master.svg)](https://ci.appveyor.com/project/Tianjiao/de4dot/branch/master) |
+| Travis       | Linux / macOS / Windows      | [![Build Status](https://travis-ci.org/Tianjiao/de4dot.svg?branch=master)](https://travis-ci.org/Tianjiao/de4dot) |                                        |     
+| Azure Pipelines       | Linux / macOS / Windows      | [![Build Status](https://dev.azure.com/TianjiaoW/de4dot/_apis/build/status/Tianjiao.de4dot?branchName=master)](https://dev.azure.com/TianjiaoW/de4dot/_build/latest?definitionId=1?branchName=master) |                                        |    
+
 Note
 ------------
 
@@ -16,12 +24,12 @@ Description
 
 de4dot is an open source (GPLv3) .NET deobfuscator and unpacker written in C#. It will try its best to restore a packed and obfuscated assembly to almost the original assembly. Most of the obfuscation can be completely restored (eg. string encryption), but symbol renaming is impossible to restore since the original names aren't (usually) part of the obfuscated assembly.
 
-It uses [dnlib](https://github.com/0xd4d/dnlib/) to read and write assemblies so make sure you get it or it won't compile.
+It uses [dnlib](https://github.com/Tianjiao/dnlib/) to read and write assemblies so make sure you get it or it won't compile.
 
 Binaries
 ========
 
-Get binaries from the [build server](https://ci.appveyor.com/project/0xd4d/de4dot/branch/master/artifacts).
+Get binaries from the [build server](https://ci.appveyor.com/project/Tianjiao/de4dot/branch/master/artifacts).
 
 It's FREE but there's NO SUPPORT
 ================================

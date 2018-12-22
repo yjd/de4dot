@@ -10,3 +10,4 @@ obj/
 Release/
 Debug/
 launchSettings.json
+tools/
