@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -261,9 +262,9 @@ namespace de4dot.code.deobfuscators.CodeFort {
 			index++;
 			var calledMethod = call.Operand as IMethod;
 			if (calledMethod.Name.String == "ToUpper")
-				return s.ToUpper();
+				return s.ToUpper(CultureInfo.CurrentCulture);
 			if (calledMethod.Name.String == "ToLower")
-				return s.ToLower();
+				return s.ToLower(CultureInfo.CurrentCulture);
 			throw new ApplicationException($"Unknown method {calledMethod}");
 		}
 	}

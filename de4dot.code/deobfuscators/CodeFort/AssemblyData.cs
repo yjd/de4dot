@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -494,7 +495,7 @@ namespace de4dot.code.deobfuscators.CodeFort {
 			var createReaderMethod = xmlReaderType.GetMethod("CreateBinaryReader", new Type[] { typeof(Stream), quotasType });
 			var xmlReader = createReaderMethod.Invoke(null, new object[] {
 				new MemoryStream(data),
-				quotasType.InvokeMember("Max", BindingFlags.GetProperty, null, null, new object[0]),
+				quotasType.InvokeMember("Max", BindingFlags.GetProperty, null, null, new object[0], CultureInfo.CurrentCulture),
 			});
 			using ((IDisposable)xmlReader) {
 				var readObjectMethod = serializerType.GetMethod("ReadObject", new Type[] { xmlReaderType });
