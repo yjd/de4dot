@@ -38,7 +38,7 @@ for:
     - mono --version
     - echo "deb http://download.mono-project.com/repo/ubuntu beta-xenial main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-beta.list
     - sudo apt-get update
-    - sudo apt-get --yes --allow-unauthenticated upgrade mono-complete
+    - sudo apt-get --yes --allow-unauthenticated upgrade mono-devel ca-certificates-mono
     - mono --version
 
   build_script:
