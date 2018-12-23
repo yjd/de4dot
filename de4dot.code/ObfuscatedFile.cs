@@ -477,7 +477,7 @@ namespace de4dot.code {
 			name = null;
 
 			var remaining = methodDesc;
-			int index = remaining.LastIndexOf("::");
+			int index = remaining.LastIndexOf("::", StringComparison.Ordinal);
 			if (index >= 0) {
 				type = remaining.Substring(0, index);
 				remaining = remaining.Substring(index + 2);
@@ -509,9 +509,9 @@ namespace de4dot.code {
 					args[i] = args[i].Trim();
 			}
 
-			if (type == "")
+			if (String.IsNullOrEmpty(type))
 				type = null;
-			if (name == "")
+			if (String.IsNullOrEmpty(name))
 				name = null;
 		}
 
@@ -776,12 +776,28 @@ namespace de4dot.code {
 
 		public void Dispose() {
 			DeobfuscateCleanUp();
-			if (module != null)
-				module.Dispose();
-			if (deob != null)
-				deob.Dispose();
-			module = null;
-			deob = null;
+			ModuleDispose(true);
+			DeobDispose(true);
+			GC.SuppressFinalize(this);
 		}
+
+		protected virtual void ModuleDispose(bool disposing) {
+			if (disposing) {
+				if (module != null) {
+					module.Dispose();
+					module = null;
+				}
+			}
+		}
+
+		protected virtual void DeobDispose(bool disposing) {
+			if (disposing) {
+				if (deob != null) {
+					deob.Dispose();
+					deob = null;
+				}
+			}
+		}
+
 	}
 }

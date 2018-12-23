@@ -96,7 +96,7 @@ namespace de4dot.code.deobfuscators.Spices_Net {
 				}
 
 				public override string ToString() {
-					if (ns == string.Empty)
+					if (String.IsNullOrEmpty(ns))
 						return $"{hash}";
 					return $"{ns}.{hash}";
 				}

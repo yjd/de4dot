@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
@@ -63,7 +64,7 @@ namespace de4dot.code.renamer {
 		public void PrepareRenameTypes(TypeRenamerState state) {
 			var checker = NameChecker;
 
-			if (newNamespace == null && oldNamespace != "") {
+			if (newNamespace == null && !String.IsNullOrEmpty(oldNamespace)) {
 				if (type.TypeDef.IsNested)
 					newNamespace = "";
 				else if (!checker.IsValidNamespaceName(oldNamespace))
@@ -74,7 +75,7 @@ namespace de4dot.code.renamer {
 			if (IsWinFormsClass())
 				origClassName = FindWindowsFormsClassName(type);
 			if (IsModuleType()) {
-				if (oldNamespace != "")
+				if (!String.IsNullOrEmpty(oldNamespace))
 					newNamespace = "";
 				Rename("<Module>");
 			}
@@ -152,7 +153,7 @@ namespace de4dot.code.renamer {
 					if (!fieldDef.FieldDef.IsStatic || !fieldDef.FieldDef.IsLiteral)
 						continue;
 					if (!checker.IsValidFieldName(fieldInfo.oldName))
-						fieldInfo.Rename(string.Format(nameFormat, i));
+						fieldInfo.Rename(string.Format(CultureInfo.InvariantCulture, nameFormat, i));
 					i++;
 				}
 			}
@@ -609,7 +610,7 @@ namespace de4dot.code.renamer {
 			eventName = addMethod.Name.String.Substring(4);
 			if (eventName != removeMethod.Name.String.Substring(7))
 				return null;
-			if (eventName == "")
+			if (String.IsNullOrEmpty(eventName))
 				return null;
 
 			return handlerMethod;

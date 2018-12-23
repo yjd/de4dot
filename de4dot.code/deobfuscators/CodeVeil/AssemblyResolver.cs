@@ -112,7 +112,7 @@ namespace de4dot.code.deobfuscators.CodeVeil {
 			var doc = new XmlDocument();
 			doc.Load(XmlReader.Create(bundleXmlFile.CreateReader().AsStream()));
 			var manifest = doc.DocumentElement;
-			if (manifest.Name.ToLowerInvariant() != "manifest") {
+			if (manifest.Name.ToUpperInvariant() != "MANIFEST") {
 				Logger.w("Could not find Manifest element");
 				return;
 			}
@@ -121,7 +121,7 @@ namespace de4dot.code.deobfuscators.CodeVeil {
 				if (assemblyElem == null)
 					continue;
 
-				if (assemblyElem.Name.ToLowerInvariant() != "assembly") {
+				if (assemblyElem.Name.ToUpperInvariant() != "ASSEMBLY") {
 					Logger.w("Unknown element: {0}", assemblyElem.Name);
 					continue;
 				}

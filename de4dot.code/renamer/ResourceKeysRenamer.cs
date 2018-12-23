@@ -222,7 +222,7 @@ namespace de4dot.code.renamer {
 			foreach (var piece in data.Split(' ')) {
 				if (piece.Length == 0)
 					continue;
-				var piece2 = piece.Substring(0, 1).ToUpperInvariant() + piece.Substring(1).ToLowerInvariant();
+				var piece2 = piece.ToUpperInvariant();
 				int maxLen = RESOURCE_KEY_MAX_LEN - sb.Length;
 				if (maxLen <= 0)
 					break;

@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
 using de4dot.blocks;
@@ -175,7 +176,7 @@ namespace de4dot.code.deobfuscators.Eazfuscator_NET {
 			if (stringDecrypter.ValidStringDecrypterValue == null)
 				return;
 
-			var newType = module.UpdateRowId(new TypeDefUser(Guid.NewGuid().ToString("B"), module.CorLibTypes.Object.TypeDefOrRef));
+			var newType = module.UpdateRowId(new TypeDefUser(Guid.NewGuid().ToString("B", CultureInfo.CurrentCulture), module.CorLibTypes.Object.TypeDefOrRef));
 			module.Types.Add(newType);
 			var newMethod = module.UpdateRowId(new MethodDefUser("x", MethodSig.CreateStatic(module.CorLibTypes.Void), 0, MethodAttributes.Static | MethodAttributes.HideBySig));
 			newType.Methods.Add(newMethod);

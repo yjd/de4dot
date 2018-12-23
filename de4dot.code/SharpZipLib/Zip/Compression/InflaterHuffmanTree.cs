@@ -77,14 +77,14 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 		/// <summary>
 		/// Literal length tree
 		/// </summary>
-		public static InflaterHuffmanTree defLitLenTree;
+		public static InflaterHuffmanTree defLitLenTree = InitializeDefLitLenTree();
 		
 		/// <summary>
 		/// Distance tree
 		/// </summary>
-		public static InflaterHuffmanTree defDistTree;
+		public static InflaterHuffmanTree defDistTree = InitializeDefDistTree();
 		
-		static InflaterHuffmanTree()
+		static InflaterHuffmanTree InitializeDefLitLenTree()
 		{
 			try {
 				byte[] codeLengths = new byte[288];
@@ -101,14 +101,21 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 				while (i < 288) {
 					codeLengths[i++] = 8;
 				}
-				defLitLenTree = new InflaterHuffmanTree(codeLengths);
-				
-				codeLengths = new byte[32];
-				i = 0;
+				return new InflaterHuffmanTree(codeLengths);
+
+			} catch (Exception) {
+				throw new SharpZipBaseException("InflaterHuffmanTree: static tree length illegal");
+			}
+		}
+
+		static InflaterHuffmanTree InitializeDefDistTree() {
+			try {
+				byte[] codeLengths = new byte[288];
+				int i = 0;
 				while (i < 32) {
 					codeLengths[i++] = 5;
 				}
-				defDistTree = new InflaterHuffmanTree(codeLengths);
+				return new InflaterHuffmanTree(codeLengths);
 			} catch (Exception) {
 				throw new SharpZipBaseException("InflaterHuffmanTree: static tree length illegal");
 			}

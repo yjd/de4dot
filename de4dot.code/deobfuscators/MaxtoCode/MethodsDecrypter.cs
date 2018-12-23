@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using dnlib.DotNet;
@@ -82,13 +83,13 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 				// Print MagicLo from McKey8C0h
 				Logger.vv("The MagicLo from McKey8C0h is");
 				Logger.Instance.Indent();
-				Logger.vv("MagicLo = 0x" + magicLo.ToString("X"));
+				Logger.vv("MagicLo = 0x" + magicLo.ToString("X", CultureInfo.CurrentCulture));
 				Logger.Instance.DeIndent();
 
 				// Print MagicHi from McKey8C0h
 				Logger.vv("The MagicHi from McKey8C0h is");
 				Logger.Instance.Indent();
-				Logger.vv("MagicHi = 0x" + magicHi.ToString("X"));
+				Logger.vv("MagicHi = 0x" + magicHi.ToString("X", CultureInfo.CurrentCulture));
 				Logger.Instance.DeIndent();
 
 				Logger.vv("If keys are new, add them with version info into EncryptionInfo[] McKey8C0h in de4dot.code\\deobfuscators\\MaxtoCode\\EncryptionInfos.cs, then publish your code.");
@@ -154,7 +155,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 
 				public Decrypter(DecryptFunc[] decrypterHandlers, uint[] timeStamps) {
 					this.decrypterHandlers = decrypterHandlers;
-					this.timeStamps = timeStamps ?? new uint[0];
+					this.timeStamps = timeStamps ?? Array.Empty<uint>();
 				}
 
 				public byte[] Decrypt(int type, byte[] encrypted) {
@@ -233,7 +234,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 					var rtNames = new List<string>();
 					foreach (var rtModRef in mainType.RuntimeModuleRefs) {
 						string dllName = rtModRef.Name;
-						if (!dllName.ToUpperInvariant().EndsWith(".DLL"))
+						if (!dllName.ToUpperInvariant().EndsWith(".DLL", StringComparison.Ordinal))
 							dllName += ".dll";
 						rtNames.Add(dllName);
 					}

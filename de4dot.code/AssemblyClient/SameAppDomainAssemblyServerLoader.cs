@@ -35,6 +35,15 @@ namespace de4dot.code.AssemblyClient {
 		}
 
 		public IAssemblyService CreateService() => service;
-		public void Dispose() { }
+		public void Dispose() {
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected virtual void Dispose(bool disposing) {
+			if (disposing) {
+
+			}
+		}
 	}
 }

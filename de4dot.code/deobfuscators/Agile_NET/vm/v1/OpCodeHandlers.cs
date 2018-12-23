@@ -17,6 +17,8 @@
     along with de4dot.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
+
 namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 	static partial class OpCodeHandlers {
 		public static readonly OpCodeHandler[][] Handlers = new OpCodeHandler[][] {
@@ -178,7 +180,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "endfinally",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodThrows = 2,
 						NumStaticMethods = 0,
 						NumInstanceMethods = 0,
@@ -259,7 +261,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "ldelema",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodLocals = new string[] {
 							"System.Int32",
 							"System.Array",
@@ -276,7 +278,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "ldlen",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodLocals = new string[] {
 							"System.Array",
 							"System.Object",
@@ -293,7 +295,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "ldobj",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodThrows = 1,
 						ExecuteMethodPops = 1,
 						NumStaticMethods = 0,
@@ -404,7 +406,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "nop",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						NumStaticMethods = 0,
 						NumInstanceMethods = 0,
 						NumVirtualMethods = 2,
@@ -432,7 +434,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "rethrow",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodThrows = 1,
 						NumStaticMethods = 0,
 						NumInstanceMethods = 0,
@@ -463,7 +465,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "stobj",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodThrows = 1,
 						ExecuteMethodPops = 2,
 						NumStaticMethods = 0,
@@ -494,7 +496,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "throw",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodLocals = new string[] {
 							"System.Object",
 						},
@@ -763,7 +765,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "ldelema",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodLocals = new string[] {
 							"System.Int32",
 							"System.Array",
@@ -782,7 +784,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "ldlen",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodLocals = new string[] {
 							"System.Array",
 							"System.Object",
@@ -802,7 +804,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "ldobj",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodLocals = new string[] {
 							"System.Boolean",
 						},
@@ -1061,7 +1063,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "nop",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodThrows = 0,
 						ExecuteMethodPops = 0,
 						NumStaticMethods = 0,
@@ -1099,7 +1101,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "rethrow",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodThrows = 1,
 						ExecuteMethodPops = 0,
 						NumStaticMethods = 0,
@@ -1114,7 +1116,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "stobj",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodLocals = new string[] {
 							"System.Boolean",
 						},
@@ -1177,7 +1179,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "throw",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodLocals = new string[] {
 							"System.Object",
 							"System.Boolean",
@@ -1437,7 +1439,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "ldelema",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodLocals = new string[] {
 							"System.Int32",
 							"System.Array",
@@ -1456,7 +1458,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "ldlen",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodLocals = new string[] {
 							"System.Array",
 							"System.Object",
@@ -1476,7 +1478,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "ldobj",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodLocals = new string[] {
 							"System.Boolean",
 						},
@@ -1735,7 +1737,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "nop",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodThrows = 0,
 						ExecuteMethodPops = 0,
 						NumStaticMethods = 0,
@@ -1773,7 +1775,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "rethrow",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodThrows = 1,
 						ExecuteMethodPops = 0,
 						NumStaticMethods = 0,
@@ -1788,7 +1790,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "stobj",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodLocals = new string[] {
 							"System.Boolean",
 						},
@@ -1851,7 +1853,7 @@ namespace de4dot.code.deobfuscators.Agile_NET.vm.v1 {
 				new OpCodeHandler {
 					Name = "throw",
 					OpCodeHandlerSigInfo = new OpCodeHandlerSigInfo {
-						RequiredFieldTypes = new object[0],
+						RequiredFieldTypes = Array.Empty<object>(),
 						ExecuteMethodLocals = new string[] {
 							"System.Object",
 							"System.Boolean",

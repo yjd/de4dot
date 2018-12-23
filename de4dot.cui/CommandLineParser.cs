@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using dnlib.DotNet;
 using dnlib.DotNet.Writer;
 using de4dot.code;
@@ -418,7 +419,7 @@ namespace de4dot.cui {
 		void PrintOptionAndExplanation(string option, string explanation) {
 			const int maxCols = 16;
 			const string prefix = "  ";
-			string left = string.Format($"{{0,-{maxCols}}}", option);
+			string left = string.Format(CultureInfo.CurrentCulture, $"{{0,-{maxCols}}}", option);
 			if (option.Length > maxCols) {
 				Logger.n("{0}{1}", prefix, left);
 				Logger.n("{0}{1} {2}", prefix, new string(' ', maxCols), explanation);

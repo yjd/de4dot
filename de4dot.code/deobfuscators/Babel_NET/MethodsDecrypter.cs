@@ -139,7 +139,7 @@ namespace de4dot.code.deobfuscators.Babel_NET {
 			}
 
 			public override string ToString() {
-				if (feature != "")
+				if (!String.IsNullOrEmpty(feature))
 					return $"{feature}:{encryptedMethodName} {method.MDToken.ToInt32():X8}";
 				else
 					return $"{encryptedMethodName} {method.MDToken.ToInt32():X8}";

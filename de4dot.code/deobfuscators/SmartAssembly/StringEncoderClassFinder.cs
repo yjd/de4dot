@@ -17,6 +17,7 @@
     along with de4dot.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Collections.Generic;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
@@ -73,7 +74,7 @@ namespace de4dot.code.deobfuscators.SmartAssembly {
 			foreach (var type in module.Types) {
 				if (type.Methods.Count != 1)
 					continue;
-				foreach (var method in DotNetUtils.FindMethods(type.Methods, "System.Void", new string[] { })) {
+				foreach (var method in DotNetUtils.FindMethods(type.Methods, "System.Void", Array.Empty<string>())) {
 					if (CheckDelegateCreatorMethod(type, method))
 						break;
 				}

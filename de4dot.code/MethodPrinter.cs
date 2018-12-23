@@ -17,6 +17,7 @@
     along with de4dot.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Collections.Generic;
 using System.Text;
 using dnlib.DotNet;
@@ -131,7 +132,7 @@ namespace de4dot.code {
 				var instrString = instr.OpCode.Name;
 				var operandString = GetOperandString(instr);
 				var memberRef = instr.Operand as ITokenOperand;
-				if (operandString == "")
+				if (String.IsNullOrEmpty(operandString))
 					Logger.Log(loggerEvent, "{0}", instrString);
 				else if (memberRef != null)
 					Logger.Log(loggerEvent, "{0,-9} {1} // {2:X8}", instrString, Utils.RemoveNewlines(operandString), memberRef.MDToken.ToUInt32());
@@ -159,7 +160,7 @@ namespace de4dot.code {
 				return Utils.ToCsharpString((string)instr.Operand);
 			else if (instr.Operand is Parameter arg) {
 				var s = InstructionPrinter.GetOperandString(instr);
-				if (s != "")
+				if (!String.IsNullOrEmpty(s))
 					return s;
 				return $"<arg_{arg.Index}>";
 			}

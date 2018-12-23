@@ -131,10 +131,10 @@ namespace de4dot.mdecrypt {
 				Environment.Version < VersionNet45Rtm;
 		}
 
-		[DllImport("kernel32", CharSet = CharSet.Ansi)]
+		[DllImport("kernel32", CharSet = CharSet.Unicode)]
 		static extern IntPtr GetModuleHandle(string name);
 
-		[DllImport("kernel32", CharSet = CharSet.Ansi)]
+		[DllImport("kernel32", CharSet = CharSet.Unicode)]
 		static extern IntPtr GetProcAddress(IntPtr hModule, string name);
 
 		[DllImport("kernel32")]
@@ -526,7 +526,7 @@ namespace de4dot.mdecrypt {
 
 			InitializeOurComp();
 			if (code == null) {
-				ctx.dm.code = new byte[0];
+				ctx.dm.code = Array.Empty<byte>();
 				UpdateFromMethodDefTableRow();
 			}
 			else

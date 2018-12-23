@@ -81,9 +81,9 @@ namespace de4dot.code.deobfuscators.Confuser {
 
 		public void AddRevs(int min, int max) {
 			if (min < 0 || max < 0 || min > max)
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("min", "Contidion: min < 0 || max < 0 || min > max");
 			if (!revToVersion.ContainsKey(min) || (max != int.MaxValue && !revToVersion.ContainsKey(max)))
-				throw new ArgumentOutOfRangeException();
+				throw new ArgumentOutOfRangeException("min", "Condition !revToVersion.ContainsKey(min) || (max != int.MaxValue && !revToVersion.ContainsKey(max)");
 
 			if (min > minRev)
 				minRev = min;

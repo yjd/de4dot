@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -158,7 +159,7 @@ namespace de4dot.code.deobfuscators.CodeFort {
 				var salt = GetString(ldstr2, instrs, ref index);
 
 				var ldc = instrs[index++];
-				if (!ldc.OpCode.StartsWith("ldc.i4"))
+				if (!ldc.OpCode.StartsWith("ldc.i4", StringComparison.Ordinal))
 					continue;
 
 				var ldstr3 = instrs[index++];
@@ -182,9 +183,9 @@ namespace de4dot.code.deobfuscators.CodeFort {
 			index++;
 			var op = new Obj(call.Operand);
 			if (op.Name == "ToUpper")
-				return s.ToUpper();
+				return s.ToUpper(CultureInfo.CurrentCulture);
 			if (op.Name == "ToLower")
-				return s.ToLower();
+				return s.ToLower(CultureInfo.CurrentCulture);
 			throw new ApplicationException($"Unknown method {op.Name}");
 		}
 	}
