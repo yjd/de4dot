@@ -54,7 +54,7 @@ namespace de4dot.code.renamer {
 				return nc.Create();
 
 			var fullName = elementType == null ? typeRef.FullName : elementType.FullName;
-			var dict = prefix == "" ? fullNameToShortName : fullNameToShortNamePrefix;
+			var dict = String.IsNullOrEmpty(prefix) ? fullNameToShortName : fullNameToShortNamePrefix;
 			if (!dict.TryGetValue(fullName, out string shortName)) {
 				fullName = fullName.Replace('/', '.');
 				int index = fullName.LastIndexOf('.');
@@ -186,7 +186,7 @@ namespace de4dot.code.renamer {
 
 		protected override string FixName(string prefix, string name) {
 			name = LowerLeadingChars(name);
-			if (prefix == "")
+			if (String.IsNullOrEmpty(prefix))
 				return name;
 			return prefix + UpperFirst(name);
 		}

@@ -64,7 +64,7 @@ namespace de4dot.code.renamer {
 		public void PrepareRenameTypes(TypeRenamerState state) {
 			var checker = NameChecker;
 
-			if (newNamespace == null && oldNamespace != "") {
+			if (newNamespace == null && !String.IsNullOrEmpty(oldNamespace)) {
 				if (type.TypeDef.IsNested)
 					newNamespace = "";
 				else if (!checker.IsValidNamespaceName(oldNamespace))
@@ -75,7 +75,7 @@ namespace de4dot.code.renamer {
 			if (IsWinFormsClass())
 				origClassName = FindWindowsFormsClassName(type);
 			if (IsModuleType()) {
-				if (oldNamespace != "")
+				if (!String.IsNullOrEmpty(oldNamespace))
 					newNamespace = "";
 				Rename("<Module>");
 			}
@@ -610,7 +610,7 @@ namespace de4dot.code.renamer {
 			eventName = addMethod.Name.String.Substring(4);
 			if (eventName != removeMethod.Name.String.Substring(7))
 				return null;
-			if (eventName == "")
+			if (String.IsNullOrEmpty(eventName))
 				return null;
 
 			return handlerMethod;

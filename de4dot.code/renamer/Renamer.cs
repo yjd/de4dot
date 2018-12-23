@@ -1299,16 +1299,16 @@ namespace de4dot.code.renamer {
 				methodPrefix = "";
 
 			overridePrefix = GetOverridePrefix(group, eventMethod);
-			if (renameOverrides && overridePrefix == "")
+			if (renameOverrides && String.IsNullOrEmpty(overridePrefix))
 				return null;
-			if (!renameOverrides && overridePrefix != "")
+			if (!renameOverrides && !String.IsNullOrEmpty(overridePrefix))
 				return null;
 
 			string newEventName, oldEventName;
 			var eventInfo = memberInfos.Event(eventDef);
 
 			bool mustUseOldEventName = false;
-			if (overridePrefix == "")
+			if (String.IsNullOrEmpty(overridePrefix))
 				oldEventName = eventInfo.oldName;
 			else {
 				var overriddenEventDef = GetOverriddenEvent(eventMethod);
@@ -1403,9 +1403,9 @@ namespace de4dot.code.renamer {
 
 			overridePrefix = GetOverridePrefix(group, propMethod);
 
-			if (renameOverrides && overridePrefix == "")
+			if (renameOverrides && String.IsNullOrEmpty(overridePrefix))
 				return null;
-			if (!renameOverrides && overridePrefix != "")
+			if (!renameOverrides && !String.IsNullOrEmpty(overridePrefix))
 				return null;
 
 			string newPropName, oldPropName;
@@ -1413,7 +1413,7 @@ namespace de4dot.code.renamer {
 			var propInfo = memberInfos.Property(propDef);
 
 			bool mustUseOldPropName = false;
-			if (overridePrefix == "")
+			if (String.IsNullOrEmpty(overridePrefix))
 				oldPropName = propInfo.oldName;
 			else {
 				var overriddenPropDef = GetOverriddenProperty(propMethod);
@@ -1546,7 +1546,7 @@ namespace de4dot.code.renamer {
 				name = name.Substring(0, i);
 			if ((i = name.LastIndexOf('.')) >= 0)
 				name = name.Substring(i + 1);
-			if (name == "")
+			if (String.IsNullOrEmpty(name))
 				return defaultVal;
 
 			return prefix.ToUpperInvariant() + UpperFirst(name) + "_";
@@ -1622,13 +1622,13 @@ namespace de4dot.code.renamer {
 
 			var overrideMethod = GetOverrideMethod(group);
 			var overridePrefix = GetOverridePrefix(group, overrideMethod);
-			if (renameOverrides && overridePrefix == "")
+			if (renameOverrides && String.IsNullOrEmpty(overridePrefix))
 				return;
-			if (!renameOverrides && overridePrefix != "")
+			if (!renameOverrides && !String.IsNullOrEmpty(overridePrefix))
 				return;
 
 			string newMethodName;
-			if (overridePrefix != "") {
+			if (!String.IsNullOrEmpty(overridePrefix)) {
 				/*var overrideInfo =*/ memberInfos.Method(overrideMethod);
 				var overriddenMethod = GetOverriddenMethod(overrideMethod);
 				if (overriddenMethod == null)

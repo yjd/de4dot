@@ -40,7 +40,7 @@ namespace de4dot.code.deobfuscators.SmartAssembly {
 			var info = new EmbeddedAssemblyInfo();
 
 			try {
-				if (encName == "" || Convert.ToBase64String(Convert.FromBase64String(encName)) != encName)
+				if (String.IsNullOrEmpty(encName) || Convert.ToBase64String(Convert.FromBase64String(encName)) != encName)
 					return null;
 			}
 			catch (FormatException) {
@@ -56,7 +56,7 @@ namespace de4dot.code.deobfuscators.SmartAssembly {
 				info.isCompressed = info.flags.IndexOf('z') >= 0;
 				rsrcName = rsrcName.Substring(i + 1);
 			}
-			if (rsrcName == "")
+			if (String.IsNullOrEmpty(rsrcName))
 				return null;
 
 			info.assemblyName = Encoding.UTF8.GetString(Convert.FromBase64String(encName));

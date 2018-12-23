@@ -509,9 +509,9 @@ namespace de4dot.code {
 					args[i] = args[i].Trim();
 			}
 
-			if (type == "")
+			if (String.IsNullOrEmpty(type))
 				type = null;
-			if (name == "")
+			if (String.IsNullOrEmpty(name))
 				name = null;
 		}
 
