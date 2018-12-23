@@ -97,7 +97,7 @@ namespace de4dot.code.deobfuscators.Babel_NET {
 			if (bmr.IsGenericMethod)
 				bmr.GenericArguments = imageReader.ReadTypeSigs();
 			else
-				bmr.GenericArguments = new TypeSig[0];
+				bmr.GenericArguments = Array.Empty<TypeSig>();
 			bmr.Parameters = ReadParameters(argTypes, bmr.HasThis);
 			return bmr;
 		}

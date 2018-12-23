@@ -29,7 +29,7 @@ namespace de4dot.code.deobfuscators.Babel_NET {
 		TypeDef resolverType;
 		MethodDef registerMethod;
 		EmbeddedResource encryptedResource;
-		EmbeddedAssemblyInfo[] embeddedAssemblyInfos = new EmbeddedAssemblyInfo[0];
+		EmbeddedAssemblyInfo[] embeddedAssemblyInfos = Array.Empty<EmbeddedAssemblyInfo>();
 
 		public class EmbeddedAssemblyInfo {
 			public string fullname;

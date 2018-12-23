@@ -155,7 +155,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 
 				public Decrypter(DecryptFunc[] decrypterHandlers, uint[] timeStamps) {
 					this.decrypterHandlers = decrypterHandlers;
-					this.timeStamps = timeStamps ?? new uint[0];
+					this.timeStamps = timeStamps ?? Array.Empty<uint>();
 				}
 
 				public byte[] Decrypt(int type, byte[] encrypted) {

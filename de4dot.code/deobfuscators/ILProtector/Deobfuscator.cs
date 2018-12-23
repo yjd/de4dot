@@ -38,7 +38,7 @@ namespace de4dot.code.deobfuscators.ILProtector {
 				ValidNameRegex = validNameRegex.Get(),
 			});
 
-		protected override IEnumerable<Option> GetOptionsInternal() => new Option[0];
+		protected override IEnumerable<Option> GetOptionsInternal() => Array.Empty<Option>();
 	}
 
 	class Deobfuscator : DeobfuscatorBase {
@@ -120,6 +120,6 @@ namespace de4dot.code.deobfuscators.ILProtector {
 			mainType.CleanUp();
 		}
 
-		public override IEnumerable<int> GetStringDecrypterMethods() => new int[0];
+		public override IEnumerable<int> GetStringDecrypterMethods() => Array.Empty<int>();
 	}
 }

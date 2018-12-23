@@ -526,7 +526,7 @@ namespace de4dot.mdecrypt {
 
 			InitializeOurComp();
 			if (code == null) {
-				ctx.dm.code = new byte[0];
+				ctx.dm.code = Array.Empty<byte>();
 				UpdateFromMethodDefTableRow();
 			}
 			else

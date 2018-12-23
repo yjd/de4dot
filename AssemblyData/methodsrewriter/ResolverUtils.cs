@@ -45,7 +45,7 @@ namespace AssemblyData.methodsrewriter {
 				return methodBase.GetGenericArguments();
 			}
 			catch (NotSupportedException) {
-				return new Type[0];
+				return Array.Empty<Type>();
 			}
 		}
 
