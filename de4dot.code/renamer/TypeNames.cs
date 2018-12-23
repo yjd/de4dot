@@ -131,10 +131,7 @@ namespace de4dot.code.renamer {
 	}
 
 	public class VariableNameCreator : TypeNames {
-		static Dictionary<string, string> ourFullNameToShortName;
-		static Dictionary<string, string> ourFullNameToShortNamePrefix;
-		static VariableNameCreator() {
-			ourFullNameToShortName = new Dictionary<string, string>(StringComparer.Ordinal) {
+		static Dictionary<string, string> ourFullNameToShortName = new Dictionary<string, string>(StringComparer.Ordinal) {
 				{ "System.Boolean", "bool" },
 				{ "System.Byte", "byte" },
 				{ "System.Char", "char" },
@@ -152,7 +149,7 @@ namespace de4dot.code.renamer {
 				{ "System.UIntPtr", "uintptr" },
 				{ "System.Decimal", "decimal" },
 			};
-			ourFullNameToShortNamePrefix = new Dictionary<string, string>(StringComparer.Ordinal) {
+		static Dictionary<string, string> ourFullNameToShortNamePrefix = new Dictionary<string, string>(StringComparer.Ordinal) {
 				{ "System.Boolean", "Bool" },
 				{ "System.Byte", "Byte" },
 				{ "System.Char", "Char" },
@@ -170,7 +167,6 @@ namespace de4dot.code.renamer {
 				{ "System.UIntPtr", "UIntPtr" },
 				{ "System.Decimal", "Decimal" },
 			};
-		}
 
 		public VariableNameCreator() {
 			fullNameToShortName = ourFullNameToShortName;
