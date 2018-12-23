@@ -17,6 +17,8 @@
     along with de4dot.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Globalization;
+
 namespace de4dot.blocks.cflow {
 	public class Real8Value : Value {
 		public readonly double Value;
@@ -163,7 +165,7 @@ namespace de4dot.blocks.cflow {
 		public override string ToString() {
 			if (!IsValid)
 				return "<INVALID_REAL8>";
-			return Value.ToString();
+			return Value.ToString(CultureInfo.InvariantCulture);
 		}
 	}
 }
