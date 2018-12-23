@@ -776,12 +776,28 @@ namespace de4dot.code {
 
 		public void Dispose() {
 			DeobfuscateCleanUp();
-			if (module != null)
-				module.Dispose();
-			if (deob != null)
-				deob.Dispose();
-			module = null;
-			deob = null;
+			ModuleDispose(true);
+			DeobDispose(true);
+			GC.SuppressFinalize(this);
 		}
+
+		protected virtual void ModuleDispose(bool disposing) {
+			if (disposing) {
+				if (module != null) {
+					module.Dispose();
+					module = null;
+				}
+			}
+		}
+
+		protected virtual void DeobDispose(bool disposing) {
+			if (disposing) {
+				if (deob != null) {
+					deob.Dispose();
+					deob = null;
+				}
+			}
+		}
+
 	}
 }
