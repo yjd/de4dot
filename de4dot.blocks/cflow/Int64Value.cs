@@ -560,7 +560,7 @@ namespace de4dot.blocks.cflow {
 
 		public override string ToString() {
 			if (AllBitsValid())
-				return Value.ToString(CultureInfo.CurrentCulture);
+				return Value.ToString(CultureInfo.InvariantCulture);
 			return $"0x{Value:X8}L({ValidMask:X8})";
 		}
 	}

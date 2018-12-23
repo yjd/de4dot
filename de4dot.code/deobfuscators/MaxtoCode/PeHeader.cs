@@ -170,7 +170,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 		/// </summary>
 		private void StringMatching(in MyPEImage peImage, uint firstFoundXorKey) {
 
-			string firstXorKeyHex = "0x" + firstFoundXorKey.ToString("X", CultureInfo.CurrentCulture);
+			string firstXorKeyHex = "0x" + firstFoundXorKey.ToString("X", CultureInfo.InvariantCulture);
 			int indexOf = 0;
 			if (firstXorKeyHex != null)
 				indexOf = firstXorKeyHex.Length / 2;

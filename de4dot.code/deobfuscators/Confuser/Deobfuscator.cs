@@ -518,10 +518,10 @@ namespace de4dot.code.deobfuscators.Confuser {
 			var val = System.Text.RegularExpressions.Regex.Match(s, @"^Confuser v(\d+)\.(\d+)\.(\d+)\.(\d+)$");
 			if (val.Groups.Count < 5)
 				return;
-			approxVersion = new Version(int.Parse(val.Groups[1].ToString(), CultureInfo.CurrentCulture),
-										int.Parse(val.Groups[2].ToString(), CultureInfo.CurrentCulture),
-										int.Parse(val.Groups[3].ToString(), CultureInfo.CurrentCulture),
-										int.Parse(val.Groups[4].ToString(), CultureInfo.CurrentCulture));
+			approxVersion = new Version(int.Parse(val.Groups[1].ToString(), CultureInfo.InvariantCulture),
+										int.Parse(val.Groups[2].ToString(), CultureInfo.InvariantCulture),
+										int.Parse(val.Groups[3].ToString(), CultureInfo.InvariantCulture),
+										int.Parse(val.Groups[4].ToString(), CultureInfo.InvariantCulture));
 		}
 
 		public override void DeobfuscateMethodEnd(Blocks blocks) {

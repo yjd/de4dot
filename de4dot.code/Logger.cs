@@ -90,12 +90,12 @@ namespace de4dot.code {
 
 			switch (loggerEvent) {
 			case LoggerEvent.Error:
-				foreach (var l in string.Format(CultureInfo.CurrentCulture, format, args).Split('\n'))
+				foreach (var l in string.Format(CultureInfo.InvariantCulture, format, args).Split('\n'))
 					LogMessage(string.Empty, $"ERROR: {l}");
 				break;
 
 			case LoggerEvent.Warning:
-				foreach (var l in string.Format(CultureInfo.CurrentCulture, format, args).Split('\n'))
+				foreach (var l in string.Format(CultureInfo.InvariantCulture, format, args).Split('\n'))
 					LogMessage(string.Empty, $"WARNING: {l}");
 				break;
 
