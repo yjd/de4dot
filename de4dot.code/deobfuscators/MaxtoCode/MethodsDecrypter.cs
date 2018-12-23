@@ -234,7 +234,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 					var rtNames = new List<string>();
 					foreach (var rtModRef in mainType.RuntimeModuleRefs) {
 						string dllName = rtModRef.Name;
-						if (!dllName.ToUpperInvariant().EndsWith(".DLL"))
+						if (!dllName.ToUpperInvariant().EndsWith(".DLL", StringComparison.Ordinal))
 							dllName += ".dll";
 						rtNames.Add(dllName);
 					}

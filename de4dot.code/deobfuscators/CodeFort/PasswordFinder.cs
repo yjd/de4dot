@@ -159,7 +159,7 @@ namespace de4dot.code.deobfuscators.CodeFort {
 				var salt = GetString(ldstr2, instrs, ref index);
 
 				var ldc = instrs[index++];
-				if (!ldc.OpCode.StartsWith("ldc.i4"))
+				if (!ldc.OpCode.StartsWith("ldc.i4", StringComparison.Ordinal))
 					continue;
 
 				var ldstr3 = instrs[index++];

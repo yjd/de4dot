@@ -477,7 +477,7 @@ namespace de4dot.code {
 			name = null;
 
 			var remaining = methodDesc;
-			int index = remaining.LastIndexOf("::");
+			int index = remaining.LastIndexOf("::", StringComparison.Ordinal);
 			if (index >= 0) {
 				type = remaining.Substring(0, index);
 				remaining = remaining.Substring(index + 2);

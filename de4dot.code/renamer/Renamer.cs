@@ -205,7 +205,7 @@ namespace de4dot.code.renamer {
 						continue;
 					if (UTF8String.IsNullOrEmpty(rsrc.Name))
 						continue;
-					if (!rsrc.Name.String.EndsWith(".g.resources"))
+					if (!rsrc.Name.String.EndsWith(".g.resources", StringComparison.Ordinal))
 						continue;
 					if (!HasXamlFiles(file.ModuleDefMD, rsrc))
 						continue;
@@ -220,7 +220,7 @@ namespace de4dot.code.renamer {
 			try {
 				var rsrcSet = ResourceReader.Read(module, rsrc.CreateReader());
 				foreach (var elem in rsrcSet.ResourceElements) {
-					if (elem.Name.EndsWith(".baml") || elem.Name.EndsWith(".xaml"))
+					if (elem.Name.EndsWith(".baml", StringComparison.Ordinal) || elem.Name.EndsWith(".xaml", StringComparison.Ordinal))
 						return true;
 				}
 			}

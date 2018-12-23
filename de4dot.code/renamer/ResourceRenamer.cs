@@ -37,14 +37,14 @@ namespace de4dot.code.renamer {
 			renamedTypes.Sort((a, b) => {
 				if (b.oldFullName.Length != a.oldFullName.Length)
 					return b.oldFullName.Length.CompareTo(a.oldFullName.Length);
-				return b.oldFullName.CompareTo(a.oldFullName);
+				return string.Compare(b.oldFullName, a.oldFullName, StringComparison.Ordinal);
 			});
 
 			nameToResource = new Dictionary<string, Resource>(module.ModuleDefMD.Resources.Count * 3, StringComparer.Ordinal);
 			foreach (var resource in module.ModuleDefMD.Resources) {
 				var name = resource.Name.String;
 				nameToResource[name] = resource;
-				if (name.EndsWith(".g.resources"))
+				if (name.EndsWith(".g.resources", StringComparison.Ordinal))
 					nameToResource[name.Substring(0, name.Length - 12)] = resource;
 				int index = name.LastIndexOf('.');
 				if (index > 0)
