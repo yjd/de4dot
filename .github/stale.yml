@@ -16,6 +16,7 @@ markComment: >
   recent activity. It will be closed if no further activity occurs. Thank you
   for your contributions.
 
+
   此Issue由于“过期”被系统自动关闭。
 # Comment to post when closing a stale issue. Set to `false` to disable
 closeComment: false
