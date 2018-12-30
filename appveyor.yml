@@ -1,7 +1,6 @@
 # https://www.appveyor.com/docs/appveyor-yml/
 # https://ci.appveyor.com/project/0xd4d/de4dot
 # https://github.com/joaope/LocalAppVeyor/blob/master/appveyor.yml
-# Alpha, for testing
 
 version: 1.0.{build}
 
@@ -11,7 +10,7 @@ branches:
 
 skip_tags: true
 
-image: 
+image:
   - Visual Studio 2017
   - Ubuntu
 
@@ -33,17 +32,17 @@ for:
       - image: Ubuntu
   install:
     - git submodule update --init --recursive
-    - wget -q https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb
-    - sudo dpkg -i packages-microsoft-prod.deb
-    - sudo apt-get --yes --allow-unauthenticated install apt-transport-https
-    - sudo apt-get update
-    - sudo apt-get --yes --allow-unauthenticated install dotnet-sdk-2.2
+#    - wget -q https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb
+#    - sudo dpkg -i packages-microsoft-prod.deb
+#    - sudo apt-get --yes --allow-unauthenticated install apt-transport-https
+#    - sudo apt-get update
+#    - sudo apt-get --yes --allow-unauthenticated install dotnet-sdk-2.2
     - dotnet --info
     - mono --version
-    - echo "deb http://download.mono-project.com/repo/ubuntu beta-xenial main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-beta.list
-    - sudo apt-get update
-    - sudo apt-get --yes --allow-unauthenticated upgrade mono-devel ca-certificates-mono
-    - mono --version
+#    - echo "deb http://download.mono-project.com/repo/ubuntu beta-xenial main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-beta.list
+#    - sudo apt-get update
+#    - sudo apt-get --yes --allow-unauthenticated upgrade mono-complete
+#    - mono --version
 
   build_script:
   - sh: ./build.sh
@@ -74,22 +73,22 @@ cache:
 #deploy:
 
 #  - provider: GitHub
-#    artifact: /de4dot-*          
+#    artifact: /de4dot-*
 #    draft: false
 #    prerelease: false
 #    on:
-#      branch: master                
+#      branch: master
 #      appveyor_repo_tag: true
 #      configuration: release
-#    skip_symbols: true       
+#    skip_symbols: true
 
 notifications:
 
   - provider: Email
     to:
       - wangtianjiao.wang959@gmail.com
-    subject: 'Build {{status}}'                  
-    message: "{{message}}, {{commitId}}, ..."    
+    subject: 'Build {{status}}'
+    message: "{{message}}, {{commitId}}, ..."
     on_build_success: true
     on_build_failure: true
     on_build_status_changed: true
