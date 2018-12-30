@@ -10,7 +10,18 @@ Read it before
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
 | AppVeyor     | Linux / Windows      | [![Build Status](https://img.shields.io/appveyor/ci/Tianjiao/de4dot/master.svg)](https://ci.appveyor.com/project/Tianjiao/de4dot/branch/master) |
 | Travis       | Linux / macOS / Windows      | [![Build Status](https://travis-ci.org/Tianjiao/de4dot.svg?branch=master)](https://travis-ci.org/Tianjiao/de4dot) |                                        |     
-| Azure Pipelines       | Linux / macOS / Windows      | [![Build Status](https://dev.azure.com/TianjiaoW/de4dot/_apis/build/status/Tianjiao.de4dot?branchName=master)](https://dev.azure.com/TianjiaoW/de4dot/_build/latest?definitionId=1?branchName=master) |                                        |    
+| Azure Pipelines       | Linux / macOS / Windows      | [![Build Status](https://dev.azure.com/TianjiaoW/de4dot/_apis/build/status/Tianjiao.de4dot?branchName=master)](https://dev.azure.com/TianjiaoW/de4dot/_build/latest?definitionId=1?branchName=master) |                                        |   
+
+## Warning list
+
+| Obfuscator | Warning code     | Description                                                                                                                                  |
+|--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| Agile.NET | CA5351 | CreateDecryptor uses a broken cryptographic algorithm DES |
+| CodeWall | CA5351 | ComputeHash uses a broken cryptographic algorithm MD5 |
+| CryptoObfuscator | CA5351 | Decrypt uses a broken cryptographic algorithm DES |
+| SmartAssembly | CA5351 | Decrypt uses a broken cryptographic algorithm DES |
+| MPRESS | CA5350 | ComputeHash uses a weak cryptographic algorithm SHA1 |
+| ILProtector | CA5351 | GetHash uses a broken cryptographic algorithm MD5 |
 
 Note
 ------------
