@@ -14,14 +14,14 @@ Read it before
 
 ## Warning list
 
-| Obfuscator | Warning code     | Description                                                                                                                                  |
+| Obfuscator | Code     | Algorithm used                                                                                                                                  |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| Agile.NET | CA5351 | CreateDecryptor uses a broken cryptographic algorithm DES |
-| CodeWall | CA5351 | ComputeHash uses a broken cryptographic algorithm MD5 |
-| CryptoObfuscator | CA5351 | Decrypt uses a broken cryptographic algorithm DES |
-| SmartAssembly | CA5351 | Decrypt uses a broken cryptographic algorithm DES |
-| MPRESS | CA5350 | ComputeHash uses a weak cryptographic algorithm SHA1 |
-| ILProtector | CA5351 | GetHash uses a broken cryptographic algorithm MD5 |
+| Agile.NET | CA5351 | DES |
+| CodeWall | CA5351 | MD5 |
+| CryptoObfuscator | CA5351 | DES |
+| SmartAssembly | CA5351 | DES |
+| MPRESS | CA5350 | SHA1 |
+| ILProtector | CA5351 | MD5 |
 
 Note
 ------------
