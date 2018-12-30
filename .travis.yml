@@ -30,6 +30,7 @@ before_install:
 
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then wget --retry-connrefused --waitretry=1 -O /tmp/mdk.pkg http://download.mono-project.com/archive/5.18.0/macos-10-universal/MonoFramework-MDK-5.18.0.225.macos10.xamarin.universal.pkg; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo installer -pkg /tmp/mdk.pkg -target /; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then which mono; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then mono --version; fi
 
 #  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install mono; fi
