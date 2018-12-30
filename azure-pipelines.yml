@@ -12,9 +12,9 @@ jobs:
       echo hello from Linux
       git submodule update --init --recursive
       mono --version
-      echo "deb http://download.mono-project.com/repo/ubuntu beta-xenial main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-beta.list
+      echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-beta.list
       sudo apt-get update
-      sudo apt-get upgrade mono-complete
+      sudo apt-get  --yes --allow-unauthenticated upgrade mono-complete
       mono --version
       dotnet --info
       ./build.sh
@@ -27,7 +27,7 @@ jobs:
       echo hello from macOS
       git submodule update --init --recursive
       mono --version
-      wget --retry-connrefused --waitretry=1 -O /tmp/mdk.pkg http://download.mono-project.com/archive/5.18.0/macos-10-universal/MonoFramework-MDK-5.18.0.macos10.xamarin.universal.pkg
+      wget --retry-connrefused --waitretry=1 -O /tmp/mdk.pkg http://download.mono-project.com/archive/5.18.0/macos-10-universal/MonoFramework-MDK-5.18.0.225.macos10.xamarin.universal.pkg
       sudo installer -pkg /tmp/mdk.pkg -target /
       mono --version
       dotnet --info
@@ -45,5 +45,3 @@ jobs:
       choco install nuget.commandline
       powershell Get-ExecutionPolicy -List
       powershell .\build.ps1
-
-
