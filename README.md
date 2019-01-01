@@ -12,6 +12,17 @@ Read it before
 | Travis       | Linux / macOS / Windows      | [![Build Status](https://travis-ci.org/Tianjiao/de4dot.svg?branch=master)](https://travis-ci.org/Tianjiao/de4dot) |                                        |     
 | Azure Pipelines       | Linux / macOS / Windows      | [![Build Status](https://dev.azure.com/TianjiaoW/de4dot/_apis/build/status/Tianjiao.de4dot?branchName=master)](https://dev.azure.com/TianjiaoW/de4dot/_build/latest?definitionId=1?branchName=master) |                                        |   
 
+## White list
+
+* CodeFort
+* CodeVeil
+* Dotfuscator
+* Eazfuscator.NET
+* Goliath.NET
+* MaxtoCode
+* Rummage
+* Xenocode
+
 ## Warning list
 
 | Obfuscator | Code     | Algorithm used                                                                                                                                  |
@@ -22,6 +33,12 @@ Read it before
 | SmartAssembly | CA5351 | DES |
 | MPRESS | CA5350 | SHA1 |
 | ILProtector | CA5351 | MD5 |
+| Babel.NET | CS0117 |  DES |
+| Confuser | CS0117 |  MD5 |
+| .NET Reactor | / | MD5 |
+| Skater.NET | CS0117 | DES3 |
+| Spices.NET | CS0117 | DES3 |
+| DeepSea | / | SHA1 |
 
 Note
 ------------
