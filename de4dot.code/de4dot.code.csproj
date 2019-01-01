@@ -24,12 +24,19 @@
     <ProjectReference Include="..\AssemblyData\AssemblyData.csproj" />
     <ProjectReference Include="..\de4dot.blocks\de4dot.blocks.csproj" />
     <ProjectReference Include="..\de4dot.mdecrypt\de4dot.mdecrypt.csproj" />
-    <ProjectReference Include="..\dnlib\src\dnlib.csproj" />
   </ItemGroup>
 
   <!-- https://docs.microsoft.com/en-us/dotnet/core/porting/libraries#remoting --> 
 
   <ItemGroup>
+<<<<<<< HEAD
+=======
+    <PackageReference Include="dnlib" Version="3.1.0" />
+    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.6.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+>>>>>>> ae1741b0... Use dnlib Nuget
     <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
   </ItemGroup>
 
