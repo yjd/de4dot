@@ -14,13 +14,16 @@ Read it before
 
 ## White list
 
-* CodeFort
-* CodeVeil
+* DeployLX (aka CodeVeil)
 * Dotfuscator
 * Eazfuscator.NET
-* Goliath.NET
 * MaxtoCode
 * Rummage
+
+## No-site list
+
+* CodeFort
+* Goliath.NET
 * Xenocode
 
 ## Warning list
