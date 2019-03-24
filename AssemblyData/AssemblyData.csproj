@@ -11,8 +11,12 @@
 
   <ItemGroup>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     <PackageReference Include="dnlib" Version="3.1.0" />
+=======
+    <PackageReference Include="dnlib" Version="3.2.0" />
+>>>>>>> c0c00829... Update dnlib nuget
     <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.6.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
