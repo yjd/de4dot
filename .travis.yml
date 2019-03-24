@@ -5,13 +5,13 @@ matrix:
     - os: linux
       dist: xenial
       sudo: required
-      mono: none
-      dotnet: 2.2.101
+      mono: latest
+      dotnet: 2.2.105
 
     - os: osx
       osx_image: xcode10.1
-      mono: 5.18.0
-      dotnet: 2.2.101
+      mono: latest
+      dotnet: 2.2.105
 
     - os: windows
       mono: none
@@ -23,9 +23,9 @@ before_install:
   - git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
   - git fetch origin
 
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then echo "deb http://download.mono-project.com/repo/ubuntu beta-xenial main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-beta.list; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get  --yes --allow-unauthenticated upgrade mono-complete; fi
+#  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then echo "deb http://download.mono-project.com/repo/ubuntu beta-xenial main" | sudo tee /etc/apt/sources.list.d/mono-xamarin-beta.list; fi
+#  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update; fi
+#  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get  --yes --allow-unauthenticated upgrade mono-complete; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then mono --version; fi
 
 #  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then wget --retry-connrefused --waitretry=1 -O /tmp/mdk.pkg http://download.mono-project.com/archive/5.18.0/macos-10-universal/MonoFramework-MDK-5.18.0.225.macos10.xamarin.universal.pkg; fi
