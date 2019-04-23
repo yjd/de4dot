@@ -31,7 +31,7 @@ before_install:
 #  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then /usr/local/bin/mono --version; fi
 
 #  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install mono; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install dotnetcore-sdk --pre --ignore-dependencies; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install dotnetcore-sdk  --version 2.2.105 --ignore-dependencies; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then dotnet --info; fi
 #  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nuget.commandline; fi
 
