@@ -194,8 +194,10 @@ namespace de4dot.code.deobfuscators.ILProtector {
 
 					return true;
 				}
+#pragma warning disable CA2153 // Do Not Catch Corrupted State Exceptions
 				catch {
 				}
+#pragma warning restore CA2153 // Do Not Catch Corrupted State Exceptions
 
 				return false;
 			}
@@ -385,7 +387,9 @@ namespace de4dot.code.deobfuscators.ILProtector {
 			readonly GetCallerMethodAsILByteArrayDelegate getCallerMethodAsILByteArrayDelegate;
 			readonly DecryptCallbackDelegate decryptCallbackDelegate;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 			[return: MarshalAs(UnmanagedType.SafeArray)]
+#pragma warning restore CS0618 // Type or member is obsolete
 			delegate byte[] GetCallerMethodAsILByteArrayDelegate(IntPtr a, int skipFrames);
 			unsafe delegate bool DecryptCallbackDelegate(IntPtr a, byte* pMethodCode, int methodSize, int methodId);
 
@@ -411,7 +415,9 @@ namespace de4dot.code.deobfuscators.ILProtector {
 			readonly GetCallerMethodAsILByteArrayDelegate getCallerMethodAsILByteArrayDelegate;
 			readonly DecryptCallbackDelegate decryptCallbackDelegate;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 			[return: MarshalAs(UnmanagedType.SafeArray)]
+#pragma warning restore CS0618 // Type or member is obsolete
 			delegate byte[] GetCallerMethodAsILByteArrayDelegate(IntPtr a, int skipFrames, IntPtr c, IntPtr d);
 			unsafe delegate bool DecryptCallbackDelegate(IntPtr a, byte* pMethodCode, int methodSize, int methodId, IntPtr e);
 
@@ -445,7 +451,9 @@ namespace de4dot.code.deobfuscators.ILProtector {
 			[DllImport("kernel32")]
 			static extern bool GetModuleHandleEx(uint dwFlags, IntPtr lpModuleName, out IntPtr phModule);
 
+#pragma warning disable CS0618 // Type or member is obsolete
 			[return: MarshalAs(UnmanagedType.SafeArray)]
+#pragma warning restore CS0618 // Type or member is obsolete
 			delegate byte[] GetCallerMethodAsILByteArrayDelegate(IntPtr a, int skipFrames, ref int flags, IntPtr d);
 			unsafe delegate bool DecryptCallbackDelegate(IntPtr a, byte* pMethodCode, int methodSize, int methodId, IntPtr e);
 			delegate IntPtr IgnoreDelegate(IntPtr a, IntPtr b);

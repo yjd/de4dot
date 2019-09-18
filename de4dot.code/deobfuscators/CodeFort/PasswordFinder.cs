@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -83,7 +84,13 @@ namespace de4dot.code.deobfuscators.CodeFort {
 		static System.Collections.IList ToList(object obj) => (System.Collections.IList)obj;
 
 		public void Find(out PasswordInfo mainAsmPassword, out PasswordInfo embedPassword) {
-			var asmBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName("asm"), AssemblyBuilderAccess.Run);
+			var asmName = new AssemblyName("asm");
+			const AssemblyBuilderAccess BuilderAccess = AssemblyBuilderAccess.Run;
+#if NET35
+			var asmBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(asmName, BuilderAccess);
+#else
+			var asmBuilder = AssemblyBuilder.DefineDynamicAssembly(asmName, BuilderAccess);
+#endif
 			var moduleBuilder = asmBuilder.DefineDynamicModule("mod");
 			var serializedTypes = new SerializedTypes(moduleBuilder);
 			var allTypes = serializedTypes.Deserialize(serializedData);
@@ -152,7 +159,7 @@ namespace de4dot.code.deobfuscators.CodeFort {
 				var salt = GetString(ldstr2, instrs, ref index);
 
 				var ldc = instrs[index++];
-				if (!ldc.OpCode.StartsWith("ldc.i4"))
+				if (!ldc.OpCode.StartsWith("ldc.i4", StringComparison.Ordinal))
 					continue;
 
 				var ldstr3 = instrs[index++];
@@ -176,9 +183,9 @@ namespace de4dot.code.deobfuscators.CodeFort {
 			index++;
 			var op = new Obj(call.Operand);
 			if (op.Name == "ToUpper")
-				return s.ToUpper();
+				return s.ToUpper(CultureInfo.CurrentCulture);
 			if (op.Name == "ToLower")
-				return s.ToLower();
+				return s.ToLower(CultureInfo.CurrentCulture);
 			throw new ApplicationException($"Unknown method {op.Name}");
 		}
 	}

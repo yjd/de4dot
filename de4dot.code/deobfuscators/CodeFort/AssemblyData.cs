@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -259,8 +260,7 @@ namespace de4dot.code.deobfuscators.CodeFort {
 				new TypeFieldInfo(typeof(string), "OpCode", "O"),
 			}),
 
-			new TypeInfo("InstructionLabel", "d", new TypeFieldInfo[] {
-			}),
+			new TypeInfo("InstructionLabel", "d", Array.Empty<TypeFieldInfo>()),
 
 			new TypeInfo("LocalVariable", "e", new TypeFieldInfo[] {
 				new TypeFieldInfo(typeof(bool), "IsPinned", "P"),
@@ -381,7 +381,7 @@ namespace de4dot.code.deobfuscators.CodeFort {
 			propCreator.Add("Namespace", ns);
 			propCreator.Add("Name", name);
 			propCreator.Add("IsReference", isReference);
-			return new CustomAttributeBuilder(ctor, new object[0], propCreator.Properties, propCreator.Values);
+			return new CustomAttributeBuilder(ctor, Array.Empty<object>(), propCreator.Properties, propCreator.Values);
 		}
 
 		CustomAttributeBuilder CreateEnumMemberAttribute(string value) {
@@ -389,7 +389,7 @@ namespace de4dot.code.deobfuscators.CodeFort {
 			var ctor = emAttr.GetConstructor(Type.EmptyTypes);
 			var propCreator = new PropertyInfoCreator(emAttr);
 			propCreator.Add("Value", value);
-			return new CustomAttributeBuilder(ctor, new object[0], propCreator.Properties, propCreator.Values);
+			return new CustomAttributeBuilder(ctor, Array.Empty<object>(), propCreator.Properties, propCreator.Values);
 		}
 
 		CustomAttributeBuilder CreateDataMemberAttribute(string name, bool emitDefaultValue) {
@@ -398,7 +398,7 @@ namespace de4dot.code.deobfuscators.CodeFort {
 			var propCreator = new PropertyInfoCreator(dmAttr);
 			propCreator.Add("Name", name);
 			propCreator.Add("EmitDefaultValue", emitDefaultValue);
-			return new CustomAttributeBuilder(ctor, new object[0], propCreator.Properties, propCreator.Values);
+			return new CustomAttributeBuilder(ctor, Array.Empty<object>(), propCreator.Properties, propCreator.Values);
 		}
 
 		void Add(string name, EnumBuilder builder) {
@@ -436,10 +436,19 @@ namespace de4dot.code.deobfuscators.CodeFort {
 		}
 
 		void CreateTypes() {
-			foreach (var info in enumInfos)
-				createdTypes[info.name] = enumBuilders[info.name].CreateType();
+			foreach (var info in enumInfos) {
+				var builder = enumBuilders[info.name];
+#if NET35
+				var type = builder.CreateType();
+#else
+				var type = builder.CreateTypeInfo();
+#endif
+				createdTypes[info.name] = type;
+			}
+#if NET472 || NETCORE
 			foreach (var info in typeInfos)
 				createdTypes[info.name] = typeBuilders[info.name].CreateType();
+#endif
 			moduleBuilder = null;
 			enumBuilders = null;
 			typeBuilders = null;
@@ -485,7 +494,7 @@ namespace de4dot.code.deobfuscators.CodeFort {
 			var createReaderMethod = xmlReaderType.GetMethod("CreateBinaryReader", new Type[] { typeof(Stream), quotasType });
 			var xmlReader = createReaderMethod.Invoke(null, new object[] {
 				new MemoryStream(data),
-				quotasType.InvokeMember("Max", BindingFlags.GetProperty, null, null, new object[0]),
+				quotasType.InvokeMember("Max", BindingFlags.GetProperty, null, null, Array.Empty<object>(), CultureInfo.CurrentCulture),
 			});
 			using ((IDisposable)xmlReader) {
 				var readObjectMethod = serializerType.GetMethod("ReadObject", new Type[] { xmlReaderType });

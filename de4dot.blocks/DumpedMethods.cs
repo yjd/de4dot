@@ -25,6 +25,7 @@ using dnlib.DotNet;
 namespace de4dot.blocks {
 	[Serializable]
 	public class DumpedMethods {
+		[NonSerialized]
 		Dictionary<uint, DumpedMethod> methods = new Dictionary<uint, DumpedMethod>();
 
 		public int Count => methods.Count;

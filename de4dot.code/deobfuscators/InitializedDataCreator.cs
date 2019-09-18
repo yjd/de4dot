@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
 using dnlib.DotNet;
@@ -80,7 +81,7 @@ namespace de4dot.code.deobfuscators {
 								BitConverter.ToInt16(hash, 6),
 								hash[8], hash[9], hash[10], hash[11],
 								hash[12], hash[13], hash[14], hash[15]);
-			return guid.ToString("B");
+			return guid.ToString("B", CultureInfo.CurrentCulture);
 		}
 
 		TypeDef GetArrayType(long size) {

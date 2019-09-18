@@ -19,6 +19,7 @@
 
 using System;
 using System.IO;
+using System.Runtime.Serialization;
 using dnlib.IO;
 
 namespace de4dot.code.deobfuscators {
@@ -29,6 +30,10 @@ namespace de4dot.code.deobfuscators {
 
 		public InvalidMethodBody(string msg)
 			: base(msg) {
+		}
+
+		protected InvalidMethodBody(SerializationInfo serializationInfo, StreamingContext streamingContext) {
+			throw new NotImplementedException();
 		}
 	}
 

@@ -28,11 +28,13 @@ using dnlib.DotNet.MD;
 using dnlib.PE;
 using de4dot.blocks;
 
+#if NET35
 namespace System.Runtime.ExceptionServices {
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
 	class HandleProcessCorruptedStateExceptionsAttribute : Attribute {
 	}
 }
+#endif
 
 namespace de4dot.mdecrypt {
 	public class DynamicMethodsDecrypter {
@@ -93,7 +95,9 @@ namespace de4dot.mdecrypt {
 		IntPtr jitterInstance;
 		IntPtr jitterVtbl;
 		Module moduleToDecrypt;
+#pragma warning disable CS0649
 		IntPtr hInstModule;
+#pragma warning restore CS0649
 		IntPtr ourCompMem;
 		bool compileMethodIsThisCall;
 		IntPtr ourCodeAddr;
@@ -127,10 +131,10 @@ namespace de4dot.mdecrypt {
 				Environment.Version < VersionNet45Rtm;
 		}
 
-		[DllImport("kernel32", CharSet = CharSet.Ansi)]
+		[DllImport("kernel32", CharSet = CharSet.Unicode)]
 		static extern IntPtr GetModuleHandle(string name);
 
-		[DllImport("kernel32", CharSet = CharSet.Ansi)]
+		[DllImport("kernel32", CharSet = CharSet.Unicode)]
 		static extern IntPtr GetProcAddress(IntPtr hModule, string name);
 
 		[DllImport("kernel32")]
@@ -159,7 +163,9 @@ namespace de4dot.mdecrypt {
 					throw new ApplicationException("Module has already been initialized");
 
 				moduleToDecrypt = value;
+#if NET472 || NETCORE
 				hInstModule = Marshal.GetHINSTANCE(moduleToDecrypt);
+#endif
 				moduleToDecryptScope = GetScope(moduleToDecrypt);
 
 				dnlibModule = ModuleDefMD.Load(hInstModule);
@@ -511,7 +517,8 @@ namespace de4dot.mdecrypt {
 				code = mh + headerSize;
 			}
 
-			CORINFO_METHOD_INFO info = default;
+			CORINFO_METHOD_INFO cORINFO_METHOD_INFO = default;
+			CORINFO_METHOD_INFO info = cORINFO_METHOD_INFO;
 			info.ILCode = new IntPtr(code);
 			info.ILCodeSize = ctx.dm.mhCodeSize;
 			info.maxStack = ctx.dm.mhMaxStack;
@@ -519,7 +526,7 @@ namespace de4dot.mdecrypt {
 
 			InitializeOurComp();
 			if (code == null) {
-				ctx.dm.code = new byte[0];
+				ctx.dm.code = Array.Empty<byte>();
 				UpdateFromMethodDefTableRow();
 			}
 			else
@@ -619,8 +626,10 @@ namespace de4dot.mdecrypt {
 					VirtualProtect(addr, info.Data.Length, oldProtect, out oldProtect);
 					return true;
 				}
+#pragma warning disable CA2153 // Do Not Catch Corrupted State Exceptions
 				catch {
 				}
+#pragma warning restore CA2153 // Do Not Catch Corrupted State Exceptions
 			}
 			return false;
 		}
@@ -659,8 +668,10 @@ namespace de4dot.mdecrypt {
 								return new IntPtr(p2 + 0x78);
 						}
 					}
+#pragma warning disable CA2153 // Do Not Catch Corrupted State Exceptions
 					catch {
 					}
+#pragma warning restore CA2153 // Do Not Catch Corrupted State Exceptions
 					try {
 						byte* p2 = (byte*)*(IntPtr**)p;
 						if ((ulong)p2 >= 0x10000) {
@@ -669,14 +680,18 @@ namespace de4dot.mdecrypt {
 								return new IntPtr(p2);
 						}
 					}
+#pragma warning disable CA2153 // Do Not Catch Corrupted State Exceptions
 					catch {
 					}
+#pragma warning restore CA2153 // Do Not Catch Corrupted State Exceptions
 					try {
 						if (*(IntPtr*)p == origValue)
 							return new IntPtr(p);
 					}
+#pragma warning disable CA2153 // Do Not Catch Corrupted State Exceptions
 					catch {
 					}
+#pragma warning restore CA2153 // Do Not Catch Corrupted State Exceptions
 				}
 			}
 			return IntPtr.Zero;

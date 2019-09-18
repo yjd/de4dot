@@ -23,15 +23,9 @@ using System.Diagnostics;
 
 namespace de4dot.blocks {
 	public class StackTracePatcher {
-		static readonly FieldInfo methodField;
-		static readonly FieldInfo framesField;
-		static readonly FieldInfo methodsToSkipField;
-
-		static StackTracePatcher() {
-			methodField = GetStackFrameMethodField();
-			framesField = GetStackTraceStackFramesField();
-			methodsToSkipField = GetMethodsToSkipField();
-		}
+		static readonly FieldInfo methodField = GetStackFrameMethodField();
+		static readonly FieldInfo framesField = GetStackTraceStackFramesField();
+		static readonly FieldInfo methodsToSkipField = GetMethodsToSkipField();
 
 		static FieldInfo GetStackFrameMethodField() {
 			var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;

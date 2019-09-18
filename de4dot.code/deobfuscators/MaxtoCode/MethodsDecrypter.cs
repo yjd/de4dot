@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using dnlib.DotNet;
@@ -82,13 +83,13 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 				// Print MagicLo from McKey8C0h
 				Logger.vv("The MagicLo from McKey8C0h is");
 				Logger.Instance.Indent();
-				Logger.vv("MagicLo = 0x" + magicLo.ToString("X"));
+				Logger.vv("MagicLo = 0x" + magicLo.ToString("X", CultureInfo.CurrentCulture));
 				Logger.Instance.DeIndent();
 
 				// Print MagicHi from McKey8C0h
 				Logger.vv("The MagicHi from McKey8C0h is");
 				Logger.Instance.Indent();
-				Logger.vv("MagicHi = 0x" + magicHi.ToString("X"));
+				Logger.vv("MagicHi = 0x" + magicHi.ToString("X", CultureInfo.CurrentCulture));
 				Logger.Instance.DeIndent();
 
 				Logger.vv("If keys are new, add them with version info into EncryptionInfo[] McKey8C0h in de4dot.code\\deobfuscators\\MaxtoCode\\EncryptionInfos.cs, then publish your code.");
@@ -154,7 +155,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 
 				public Decrypter(DecryptFunc[] decrypterHandlers, uint[] timeStamps) {
 					this.decrypterHandlers = decrypterHandlers;
-					this.timeStamps = timeStamps ?? new uint[0];
+					this.timeStamps = timeStamps ?? Array.Empty<uint>();
 				}
 
 				public byte[] Decrypt(int type, byte[] encrypted) {
@@ -213,9 +214,10 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 
 			public void InitializeInfos() {
 				InitializeDecrypter();
+				// Reducing the keyspace for a brute force attack, see case: https://crypto.stackexchange.com/questions/25358/reducing-the-keyspace-for-a-brute-force-attack-on-a-chained-64-bit-xor
 				if (!InitializeInfos2()) {
-					// Ignore ApplicationException here, output text in Red on Console
-					Console.ForegroundColor = ConsoleColor.Red;
+					// Ignore ApplicationException here, warning in Yellow on Console
+					Console.ForegroundColor = ConsoleColor.Yellow;
 					Logger.w("Ignore ApplicationException, Could not decrypt methods.");
 					// Restore the original console colors.
 					Console.ResetColor();
@@ -232,7 +234,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 					var rtNames = new List<string>();
 					foreach (var rtModRef in mainType.RuntimeModuleRefs) {
 						string dllName = rtModRef.Name;
-						if (!dllName.ToUpperInvariant().EndsWith(".DLL"))
+						if (!dllName.ToUpperInvariant().EndsWith(".DLL", StringComparison.Ordinal))
 							dllName += ".dll";
 						rtNames.Add(dllName);
 					}
@@ -252,10 +254,11 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 												Logger.vv("Full path of Referenced DLL is " + Path.Combine(di.FullName, dllName));
 										}
 										// Print Referenced DLL TimeDateStamp
-										var dateTime = new DateTime(1970, 1, 1, 0, 0, 0);
+										var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
 										Logger.vv("Referenced DLL TimeDateStamp is");
 										Logger.Instance.Indent();
-										Logger.vv("{0:X} = {1:r}", peImage.ImageNTHeaders.FileHeader.TimeDateStamp, dateTime.AddSeconds(peImage.ImageNTHeaders.FileHeader.TimeDateStamp));
+										// RFC1123 pattern, see https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings#the-rfc1123-r-r-format-specifier
+										Logger.vv("{0:X} = {1:r}", peImage.ImageNTHeaders.FileHeader.TimeDateStamp, dateTime.AddSeconds(peImage.ImageNTHeaders.FileHeader.TimeDateStamp).ToUniversalTime());
 										Logger.Instance.DeIndent();
 										Logger.vv("Add this TimeDateStamp into comments of EncryptionInfo[] Rva900h and EncryptionInfo[] McKey8C0h in de4dot.code\\deobfuscators\\MaxtoCode\\EncryptionInfos.cs, then publish your code.");
 

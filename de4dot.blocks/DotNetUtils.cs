@@ -589,16 +589,16 @@ namespace de4dot.blocks {
 					continue;
 				if (PublicKeyBase.IsNullOrEmpty2(modRef.PublicKeyOrToken))
 					continue;
-				switch (BitConverter.ToString(modRef.PublicKeyOrToken.Data).Replace("-", "").ToLowerInvariant()) {
-				case "b77a5c561934e089":
+				switch (BitConverter.ToString(modRef.PublicKeyOrToken.Data).Replace("-", "").ToUpperInvariant()) {
+				case "B77A5C561934E089":
 					return FrameworkType.Desktop;
-				case "7cec85d7bea7798e":
+				case "7CEC85D7BEA7798E":
 					return FrameworkType.Silverlight;
-				case "969db8053d3322ac":
+				case "969DB8053D3322AC":
 					return FrameworkType.CompactFramework;
-				case "1c9e259686f921e0":
+				case "1C9E259686F921E0":
 					return FrameworkType.XNA;
-				case "e92a8b81eba7ceb7":
+				case "E92A8B81EBA7CEB7":
 					return FrameworkType.Zune;
 				}
 			}

@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
 using de4dot.blocks;
@@ -144,7 +145,7 @@ namespace de4dot.code.deobfuscators.SmartAssembly {
 				return true;
 
 			if (decrypterVersion <= StringDecrypterVersion.V3) {
-				stringsResource = DotNetUtils.GetResource(module, (module.Mvid ?? Guid.NewGuid()).ToString("B")) as EmbeddedResource;
+				stringsResource = DotNetUtils.GetResource(module, (module.Mvid ?? Guid.NewGuid()).ToString("B", CultureInfo.CurrentCulture)) as EmbeddedResource;
 				if (stringsResource != null)
 					return true;
 			}

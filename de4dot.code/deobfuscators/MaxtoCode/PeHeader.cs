@@ -18,6 +18,9 @@
 */
 
 using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.Text;
 using dnlib.PE;
 
 namespace de4dot.code.deobfuscators.MaxtoCode {
@@ -43,6 +46,8 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 		public PeHeader(MainType mainType, MyPEImage peImage) {
 			version = GetHeaderOffsetAndVersion(peImage, out uint headerOffset);
 			headerData = peImage.OffsetReadBytes(headerOffset, 0x1000);
+			// MC uses 4-byte xorKey, 2 Hex for 1 Byte
+			GuessXorKey(false, peImage, 4);
 
 			switch (version) {
 			case EncryptionVersion.V1:
@@ -82,6 +87,119 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 		public uint GetMcKeyRva() => GetRva(0x0FFC, xorKey);
 		public uint GetRva(int offset, uint xorKey) => ReadUInt32(offset) ^ xorKey;
 		public uint ReadUInt32(int offset) => BitConverter.ToUInt32(headerData, offset);
+
+		/// <summary>Guess the xorKey by the Blue-force Attack in here
+		/// <para>With optimization inherited by the de4dot's API.
+		/// <para>Use Python script for general purpose XOR guessing.
+		/// <para>Multiple parameters
+		/// <param name="turnOn">Used to enable this method.</param>
+		/// <param name="peImage">Used to pass the peImage param.</param>
+		/// <param name="keyLength">Used to specify the keyLength of the possible xorKey value.(In bytes)</param>
+		/// <para>(keyLength is not the length of the key)
+		/// <para>Try these xorKey in PEHeader() <see cref="PeHeader(MainType, MyPEImage)"/>, if wrong, error message of "Invalid resource RVA and size found" will be given.
+		/// <para>Author: Tianjiao(Wang Genghuang) at https://github.com/Tianjiao/de4dot
+		/// </summary>
+		private void GuessXorKey(bool turnOn, in MyPEImage peImage, ushort keyLength) {
+			if (turnOn != true)
+				return;
+
+			string lowerBandHex = "", upperBandHex = "";
+			var lowerBandHexSB = new StringBuilder("0x1", (keyLength + 3));
+			var upperBandHexSB = new StringBuilder("0x", ((keyLength * 2) + 2));
+
+			// Minimum Hex value for this keyLength
+			if (lowerBandHexSB != null)
+				lowerBandHex = lowerBandHexSB.Append('0', keyLength).ToString();
+
+			// Maximum Hex value for this keyLength
+			if (upperBandHexSB != null)
+				upperBandHex = upperBandHexSB.Append('F', (keyLength * 2)).ToString();
+
+			var stopWatch = new Stopwatch();
+			stopWatch.Start();
+			ExcludeXorKey(peImage, lowerBandHex, upperBandHex, false);
+			stopWatch.Stop();
+			// Get the elapsed time as a TimeSpan value.
+			var ts = stopWatch.Elapsed;
+
+			// Format and display the TimeSpan value.
+			string elapsedTime = String.Format(CultureInfo.CurrentCulture, "{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+			Logger.vv("Finish Guessing xorkey, RunTime " + elapsedTime);
+		}
+
+		/// <summary>Exclude the xorKey by CheckMcKeyRva() <see cref="CheckMcKeyRva(MyPEImage, uint)"/>
+		/// <para>With optimization inherited by the de4dot's API.
+		/// <para>Multiple parameters
+		/// <param name="peImage">Used to pass the peImage param.</param>
+		/// <param name="lowerBandHex">Used to specify the Minimum Hex value of the possible xorKey value.</param>
+		/// <param name="upperBandHex">Used to specify the Maximum Hex value of the possible xorKey value.</param>
+		/// <param name="isStringMatching">Used to specify whether enable String Matching.</param>
+		/// <para>Author: Tianjiao(Wang Genghuang) at https://github.com/Tianjiao/de4dot
+		/// </summary>
+		private void ExcludeXorKey(in MyPEImage peImage, string lowerBandHex, string upperBandHex, bool isStringMatching) {
+			uint lowerBand = 0, upperBand = 0;
+			if (lowerBandHex != null)
+				lowerBand = Convert.ToUInt32(lowerBandHex, 16);
+			if (upperBandHex != null)
+				upperBand = Convert.ToUInt32(upperBandHex, 16);
+
+			for (uint triedXorKey = lowerBand; triedXorKey < upperBand; triedXorKey++) {
+				if (CheckMcKeyRva(peImage, triedXorKey)) {
+					if (isStringMatching) {
+						StringMatching(peImage, triedXorKey);
+						break;
+					}
+					Logger.vv("Guessed possible xorkey found at");
+					Logger.Instance.Indent();
+					Logger.vv("0x" + triedXorKey.ToString("X", CultureInfo.CurrentCulture));
+					Logger.Instance.DeIndent();
+					Logger.vv("_________________________________");
+				}
+
+				if (triedXorKey >= upperBand)
+					break;
+			}
+		}
+
+		/// <summary>Guess the xorKey by the existing StringMatching in here
+		/// <para>Alpha, on EncryptionVersion.V8 above
+		/// <para>Multiple parameters
+		/// <param name="peImage">Used to pass the peImage param.</param>
+		/// <param name="firstFoundXorKey">Used to specify the firstFoundXorKey string for known pattern.</param>
+		/// <para>Author: Tianjiao(Wang Genghuang) at https://github.com/Tianjiao/de4dot
+		/// </summary>
+		private void StringMatching(in MyPEImage peImage, uint firstFoundXorKey) {
+
+			string firstXorKeyHex = "0x" + firstFoundXorKey.ToString("X", CultureInfo.InvariantCulture);
+			int indexOf = 0;
+			if (firstXorKeyHex != null)
+				indexOf = firstXorKeyHex.Length / 2;
+
+			var hex = new char[16] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+			var sb = new StringBuilder(firstXorKeyHex);
+			uint patternKeyValue = 0;
+
+			for (int i = 0; i < hex.Length; i++) {
+				for (int k = 0; k < hex.Length; k++) {
+					if ((sb != null) && (indexOf >= 0) && (indexOf + 1 < sb.Length)) {
+						sb[indexOf] = hex[i];
+						sb[indexOf + 1] = hex[k];
+					}
+					string patternKey = sb.ToString();
+					if (patternKey != null)
+						patternKeyValue = Convert.ToUInt32(patternKey, 16);
+
+					if (CheckMcKeyRva(peImage, patternKeyValue)) {
+						Logger.vv("Guessed possible xorkey by PatternMatching found at");
+						Logger.Instance.Indent();
+						Logger.vv("0x" + patternKeyValue.ToString("X", CultureInfo.CurrentCulture));
+						Logger.Instance.DeIndent();
+						Logger.vv("_________________________________");
+					}
+					sb = new StringBuilder(firstXorKeyHex);
+				}
+			}
+		}
 
 		static EncryptionVersion GetHeaderOffsetAndVersion(MyPEImage peImage, out uint headerOffset) {
 			headerOffset = 0;
@@ -149,13 +267,13 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 					// Print Successful MagicLo from Rva900h
 					Logger.vv("The used MagicLo from Rva900h is");
 					Logger.Instance.Indent();
-					Logger.vv("MagicLo = 0x" + m1lo.ToString("X"));
+					Logger.vv("MagicLo = 0x" + m1lo.ToString("X", CultureInfo.CurrentCulture));
 					Logger.Instance.DeIndent();
 
 					// Print Successful MagicHi from Rva900h			
 					Logger.vv("The used MagicHi from Rva900h is");
 					Logger.Instance.Indent();
-					Logger.vv("MagicHi = 0x" + m1hi.ToString("X"));
+					Logger.vv("MagicHi = 0x" + m1hi.ToString("X", CultureInfo.CurrentCulture));
 					Logger.Instance.DeIndent();
 					Logger.vv("_________________________________");
 

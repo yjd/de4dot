@@ -22,21 +22,34 @@ using System;
 namespace de4dot.blocks {
 	[Serializable]
 	public class DumpedMethod {
-		public ushort mhFlags;			// method header Flags
-		public ushort mhMaxStack;		// method header MaxStack
-		public uint mhCodeSize;			// method header CodeSize
-		public uint mhLocalVarSigTok;	// method header LocalVarSigTok
+		[NonSerialized]
+		public ushort mhFlags;          // method header Flags
+		[NonSerialized]
+		public ushort mhMaxStack;       // method header MaxStack
+		[NonSerialized]
+		public uint mhCodeSize;         // method header CodeSize
+		[NonSerialized]
+		public uint mhLocalVarSigTok;   // method header LocalVarSigTok
 
-		public uint mdRVA;				// methodDef RVA
-		public ushort mdImplFlags;		// methodDef ImplFlags
-		public ushort mdFlags;			// methodDef Flags
-		public uint mdName;				// methodDef Name (index into #String)
-		public uint mdSignature;		// methodDef Signature (index into #Blob)
-		public uint mdParamList;		// methodDef ParamList (index into Param table)
+		[NonSerialized]
+		public uint mdRVA;              // methodDef RVA
+		[NonSerialized]
+		public ushort mdImplFlags;      // methodDef ImplFlags
+		[NonSerialized]
+		public ushort mdFlags;          // methodDef Flags
+		[NonSerialized]
+		public uint mdName;             // methodDef Name (index into #String)
+		[NonSerialized]
+		public uint mdSignature;        // methodDef Signature (index into #Blob)
+		[NonSerialized]
+		public uint mdParamList;        // methodDef ParamList (index into Param table)
 
-		public uint token;				// metadata token
+		[NonSerialized]
+		public uint token;              // metadata token
 
+		[NonSerialized]
 		public byte[] code;
+		[NonSerialized]
 		public byte[] extraSections;
 	}
 }

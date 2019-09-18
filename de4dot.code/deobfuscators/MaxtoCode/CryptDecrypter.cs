@@ -233,7 +233,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 
 			public void Xor(Bits other) {
 				if (byteBits.Length != other.byteBits.Length)
-					throw new ArgumentException("other");
+					throw new ArgumentException("Condition byteBits.Length != other.byteBits.Length", "other");
 				for (int i = 0; i < byteBits.Length; i++)
 					byteBits[i] ^= other.byteBits[i];
 			}
@@ -254,7 +254,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 
 		byte[] Decrypt(byte[] encrypted) {
 			if (encrypted.Length % 8 != 0)
-				throw new ArgumentException("encrypted");
+				throw new ArgumentException("Condition encrypted.Length % 8 != 0", "encrypted");
 			var key1 = CreateKey(key, 0);
 			var key2 = CreateKey(key, 8);
 
@@ -334,7 +334,7 @@ namespace de4dot.code.deobfuscators.MaxtoCode {
 			var tmpKey = new byte[8];
 			int len = Math.Min(tmpKey.Length, data.Length - index);
 			if (len == 0)
-				throw new ArgumentException("data");
+				throw new ArgumentException("Condition len == 0", "data");
 			Array.Copy(data, index, tmpKey, 0, len);
 			var bits = Bits.FromBytes(tmpKey).Transpose(pc1);
 			key1 = Bits.FromByteBits(bits.ByteBits, 0, 28);

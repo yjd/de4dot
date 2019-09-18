@@ -17,6 +17,7 @@
     along with de4dot.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -59,7 +60,7 @@ namespace de4dot.code {
 
 		public void Set(string regexesString) {
 			regexes = new List<NameRegex>();
-			if (regexesString != "") {
+			if (!String.IsNullOrEmpty(regexesString)) {
 				foreach (var regex in regexesString.Split(new char[] { regexSeparatorChar }))
 					regexes.Add(new NameRegex(regex));
 			}

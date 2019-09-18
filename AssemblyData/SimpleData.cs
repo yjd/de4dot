@@ -24,6 +24,7 @@ namespace AssemblyData {
 	// This class will make sure no data in the string is destroyed by serialization
 	[Serializable]
 	class MyString {
+		[NonSerialized]
 		short[] data;
 
 		public MyString() {

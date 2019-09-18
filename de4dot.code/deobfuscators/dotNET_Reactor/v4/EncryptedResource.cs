@@ -93,7 +93,7 @@ namespace de4dot.code.deobfuscators.dotNET_Reactor.v4 {
 				return DnrDecrypterType.Unknown;
 
 			if (additionalTypes == null)
-				additionalTypes = new string[0];
+				additionalTypes = Array.Empty<string>();
 			var localTypes = new LocalTypes(method);
 			if (DecrypterV1.CouldBeResourceDecrypter(method, localTypes, additionalTypes))
 				return DnrDecrypterType.V1;
@@ -128,7 +128,7 @@ namespace de4dot.code.deobfuscators.dotNET_Reactor.v4 {
 				}
 			}
 
-			var decrypterType = GetDecrypterType(resourceDecrypterMethod, new string[0]);
+			var decrypterType = GetDecrypterType(resourceDecrypterMethod, Array.Empty<string>());
 			switch (decrypterType) {
 			case DnrDecrypterType.V1: decrypter = new DecrypterV1(iv, key); break;
 			case DnrDecrypterType.V2: decrypter = new DecrypterV2(iv, key, resourceDecrypterMethod); break;
